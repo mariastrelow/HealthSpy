@@ -1,0 +1,155 @@
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#cad5de,#cad5de);
+    text-align:center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container{ padding:20px; }
+
+h1,h2{ color:#1E2240; }
+
+
+.selecionado{
+    background-color: #ff7675 !important;
+    transform: scale(1.05);
+}
+
+input{
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    margin:5px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 10px rgba(0,0,0,0.1);
+    margin:20px auto;
+    max-width:400px;
+}
+
+.hidden{ display:none; }
+
+.tela-inicial {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    width: 220px;
+    margin-bottom: 40px;
+}
+
+.btn-jogar {
+    width: 220px;
+    padding: 14px;
+    background-color: #1E2240;
+    color: #cad5de;
+    border: none;
+    border-radius: 14px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-jogar:hover {
+    opacity: 0.9;
+    background-color: #0a0c20;
+}
+
+.como-jogar {
+    margin-top: 15px;
+    color: #58C4B6;
+    font-weight: 500;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.como-jogar:hover {
+    color: #459b8f;
+
+}
+
+.tela-jogadores {
+    min-height: 100vh;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.tela-jogadores h2 {
+    font-weight: 600;
+    color: #1E2240;
+}
+
+.tela-jogadores span {
+    font-size: 14px;
+}
+
+.lista-jogadores {
+    margin-top: 30px;
+}
+
+.input-jogador {
+    background-color: #1E2240;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 15px;
+    margin-bottom: 15px;
+}
+
+.input-jogador input {
+    background: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    font-size: 20px;
+    width: 80%;
+}
+
+.input-jogador i {
+    color: white;
+    cursor: pointer;
+}
+
+.area-adicionar {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.btn-adicionar {
+    background-color: #58C4B6;
+    color: #1E2240;
+    border: 2px solid #1E2240;
+    padding: 8px 16px;
+    border-radius: 12px;
+    margin-top: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-iniciar {
+    display: block;
+    margin: 40px auto 0;
+    width: 200px;
+    padding: 14px;
+    background-color: #58C4B6;
+    color: #1E2240;
+    border: 2px solid #1E2240;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.hidden{
+    display: none;
+}
