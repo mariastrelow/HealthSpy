@@ -62,8 +62,7 @@ input{
 }
 
 .btn-jogar:hover {
-    opacity: 0.9;
-    background-color: #459b8f;
+    transform: scale(1.2);
 }
 
 .como-jogar {
@@ -81,7 +80,7 @@ input{
 
 .tela-jogadores {
     min-height: 100vh;
-    padding: 10px 50px;
+    padding: 10px 10px;
     text-align: center;
 }
 
@@ -103,9 +102,9 @@ input{
     border-radius: 12px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 4px 15px;
+    padding: 8px 15px;
     margin-bottom: 15px;
+    gap: 10px;
 }
 
 .input-jogador input {
@@ -113,15 +112,16 @@ input{
     border: none;
     color: white;
     outline: none;
-    font-size: 20px;
-    flex: 1; 
+    font-size: 18px;
+    flex: 1;
+    min-width: 0;
 }
 
 .input-jogador i {
-    font-size: 25px;
-    color: #cad5de;
+    font-size: 20px;
+    color: #ff6b6b;
     cursor: pointer;
-    transition: 0.2s ease;
+    flex-shrink: 0; 
 }
 
 .input-jogador i:hover {
@@ -146,6 +146,10 @@ input{
     cursor: pointer;
 }
 
+.btn-adicionar:hover {
+    transform: scale(1.1);
+}
+
 .btn-iniciar {
     display: block;
     margin: 4px auto 0;
@@ -159,6 +163,11 @@ input{
     font-weight: 600;
     cursor: pointer;
 }
+
+.btn-iniciar:hover {
+    transform: scale(1.1);
+}
+
 .hidden{
     display: none;
 }
