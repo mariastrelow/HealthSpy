@@ -1,103 +1,139 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="Imagens/logo.png">
-<title>HealthSpy</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="Imagens/logo.png">
+    <title>HealthSpy</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-<div class="container">
+    <div class="container">
 
-<div class="tela-inicial" id="telaInicial">
+        <div class="tela-inicial" id="telaInicial">
 
-    <img src="Imagens/logoTelaInicial.png" class="logo">
+            <img src="Imagens/logoTelaInicial.png" class="logo">
 
-    <button class="btn-jogar" onclick="mostrarJogadores()">Jogar</button>
+            <button class="btn-jogar" onclick="mostrarJogadores()">Jogar</button>
 
-    <p class="como-jogar">Como jogar?</p>
+            <p class="como-jogar" onclick="mostrarComoJogar()">Como jogar?</p>
 
-</div>
-
-<div class="tela-jogadores hidden" id="telaJogadores">
-
-    <h2>Insira o nome dos jogadores<br><span>(4 - 8)</span></h2>
-
-    <div class="lista-jogadores">
-        <div class="input-jogador">
-            <input type="text" placeholder="Nome">
-            <i class="bi bi-trash"></i>
         </div>
 
-        <div class="input-jogador">
-            <input type="text" placeholder="Nome">
-            <i class="bi bi-trash"></i>
+        <div class="tela-como-jogar hidden" id="telaComoJogar">
+
+            <div class="card">
+
+                <h2>Como Jogar</h2>
+
+                <p>
+                    Insira de <strong>4 a 8 jogadores</strong>.<br><br>
+
+                    Um jogador será o <strong>espião</strong>.<br>
+                    Os outros receberão um <strong>tema secreto</strong>.<br><br>
+
+                    Cada jogador faz uma pergunta para outro.<br>
+                    O espião deve tentar descobrir o tema.<br><br>
+
+                    Todos votam em quem acham que é o espião.<br><br>
+
+                    No final, o espião pode tentar adivinhar o tema para vencer.
+                </p>
+
+                <button class="btn-iniciar" onclick="voltarInicio()">Voltar</button>
+
+            </div>
+
         </div>
 
-        <div class="input-jogador">
-            <input type="text" placeholder="Nome">
-            <i class="bi bi-trash"></i>
+        <div class="tela-jogadores hidden" id="telaJogadores">
+
+            <h2>Insira o nome dos jogadores<br><span>(4 - 8)</span></h2>
+
+            <div class="lista-jogadores">
+
+                <div class="input-jogador fixo">
+                    <input type="text" placeholder="Nome">
+                </div>
+
+                <div class="input-jogador fixo">
+                    <input type="text" placeholder="Nome">
+                </div>
+
+                <div class="input-jogador fixo">
+                    <input type="text" placeholder="Nome">
+                </div>
+
+                <div class="input-jogador fixo">
+                    <input type="text" placeholder="Nome">
+                </div>
+
+            </div>
+
+            <div class="area-adicionar">
+
+                <button class="btn-voltar" onclick="voltarParaInicio()">
+                    <i class="bi bi-arrow-left"></i>
+                </button>
+
+                <button class="btn-adicionar">Adicionar</button>
+
+            </div>
+
+            <button class="btn-iniciar" onclick="iniciarJogo()">Iniciar</button>
+            <p id="mensagemErro" class="mensagem-erro hidden"></p>
         </div>
 
-        <div class="input-jogador">
-            <input type="text" placeholder="Nome">
-            <i class="bi bi-trash"></i>
+        <div id="telaRevelar" class="hidden">
+            <div class="card">
+                <h2 id="tituloRevelar"></h2>
+                <p id="infoRevelar"></p>
+                <button onclick="proximoJogador()">Próximo</button>
+            </div>
         </div>
+
+        <div id="telaPergunta" class="hidden">
+            <div class="card">
+                <h2 id="infoPergunta"></h2>
+                <p id="textoPergunta"></p>
+                <button onclick="proximaInteracao()">Próximo</button>
+            </div>
+        </div>
+
+        <div id="telaVotacao" class="hidden">
+            <h2 id="tituloVotacao"></h2>
+            <div id="opcoesVoto"></div>
+            <button onclick="registrarVoto()">Confirmar voto</button>
+        </div>
+
+        <div id="telaImpostor" class="hidden">
+            <div class="card">
+                <h2>Impostor, escolha o tema:</h2>
+                <div id="opcoesTema"></div>
+            </div>
+        </div>
+
+        <div id="telaResultado" class="hidden">
+            <div class="card">
+                <h2>Resultado</h2>
+                <p id="resultadoTexto"></p>
+                <button id="botaoContinuar" class="hidden">Continuar</button>
+                <button onclick="location.reload()">Jogar novamente</button>
+            </div>
+        </div>
+
     </div>
 
-    <div class="area-adicionar">
-        <button class="btn-adicionar">Adicionar</button>
-    </div>
-    
-    <button class="btn-iniciar" onclick="iniciarJogo()">Iniciar</button>
-
-</div>
-
-<div id="telaRevelar" class="hidden">
-    <div class="card">
-        <h2 id="tituloRevelar"></h2>
-        <p id="infoRevelar"></p>
-        <button onclick="proximoJogador()">Próximo</button>
-    </div>
-</div>
-
-<div id="telaPergunta" class="hidden">
-    <div class="card">
-        <h2 id="infoPergunta"></h2>
-        <p id="textoPergunta"></p>
-        <button onclick="proximaInteracao()">Próximo</button>
-    </div>
-</div>
-
-<div id="telaVotacao" class="hidden">
-    <h2 id="tituloVotacao"></h2>
-    <div id="opcoesVoto"></div>
-    <button onclick="registrarVoto()">Confirmar voto</button>
-</div>
-
-<div id="telaImpostor" class="hidden">
-    <div class="card">
-        <h2>Impostor, escolha o tema:</h2>
-        <div id="opcoesTema"></div>
-    </div>
-</div>
-
-<div id="telaResultado" class="hidden">
-    <div class="card">
-        <h2>Resultado</h2>
-        <p id="resultadoTexto"></p>
-        <button id="botaoContinuar" class="hidden">Continuar</button>
-        <button onclick="location.reload()">Jogar novamente</button>
-    </div>
-</div>
-
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>

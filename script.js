@@ -1,60 +1,65 @@
-let jogadores=[];
+let jogadores = [];
 let temaSelecionado;
 let impostorIndex;
 let papelRevelado = false;
 let impostorFoiDescoberto = false;
 
-let perguntasBase=[
-"Isso deve ser feito todo dia?",
-"Ajuda na energia?",
-"É rápido ou demorado?",
-"Você faz com frequência?",
-"Melhora a saúde?"
+let perguntasBase = [
+    "Isso deve ser feito todo dia?",
+    "Ajuda na energia?",
+    "É rápido ou demorado?",
+    "Você faz com frequência?",
+    "Melhora a saúde?"
 ];
 
-let temas=[
-"Dormir bem","Beber água","Comer frutas","Fazer exercício",
-"Alongamento","Café da manhã","Organizar rotina"
+let temas = [
+    "Dormir bem", "Beber água", "Comer frutas", "Fazer exercício",
+    "Alongamento", "Café da manhã", "Organizar rotina"
 ];
 
-let paresPergunta=[];
-let indiceInteracao=0;
-let votos=[];
-let votanteAtual=0;
-let jogadorAtualRevelar=0;
+let paresPergunta = [];
+let indiceInteracao = 0;
+let votos = [];
+let votanteAtual = 0;
+let jogadorAtualRevelar = 0;
 
-/* TELAS */
-const telaInicial=document.getElementById("telaInicial");
-const telaJogadores=document.getElementById("telaJogadores");
-const telaRevelar=document.getElementById("telaRevelar");
-const telaPergunta=document.getElementById("telaPergunta");
-const telaVotacao=document.getElementById("telaVotacao");
-const telaImpostor=document.getElementById("telaImpostor");
-const telaResultado=document.getElementById("telaResultado");
 
-/* INÍCIO */
-function mostrarJogadores(){
+const telaInicial = document.getElementById("telaInicial");
+const telaJogadores = document.getElementById("telaJogadores");
+const telaRevelar = document.getElementById("telaRevelar");
+const telaPergunta = document.getElementById("telaPergunta");
+const telaVotacao = document.getElementById("telaVotacao");
+const telaImpostor = document.getElementById("telaImpostor");
+const telaResultado = document.getElementById("telaResultado");
+
+
+function mostrarJogadores() {
     telaInicial.classList.add("hidden");
     telaJogadores.classList.remove("hidden");
 }
-// Seletores
+
+function mostrarComoJogar() {
+    telaInicial.classList.add("hidden");
+    document.getElementById("telaComoJogar").classList.remove("hidden");
+}
+
+function voltarInicio() {
+    document.getElementById("telaComoJogar").classList.add("hidden");
+    telaInicial.classList.remove("hidden");
+}
+
+
 const listaJogadores = document.querySelector(".lista-jogadores");
 const btnAdicionar = document.querySelector(".btn-adicionar");
 
 let totalJogadores = document.querySelectorAll(".input-jogador").length;
 
-// 🔹 Função para atualizar eventos da lixeira
+
 function atualizarEventosRemover() {
-    const botoesRemover = document.querySelectorAll(".input-jogador i");
+    const botoesRemover = document.querySelectorAll(".remover");
 
     botoesRemover.forEach(botao => {
         botao.onclick = function () {
-
-            if (totalJogadores <= 4) {
-                alert("O mínimo é 4 jogadores.");
-                return;
-            }
-
             this.parentElement.remove();
             totalJogadores--;
         };
@@ -72,9 +77,9 @@ btnAdicionar.addEventListener("click", function () {
     novoJogador.classList.add("input-jogador");
 
     novoJogador.innerHTML = `
-        <input type="text" placeholder="Nome">
-        <i class="bi bi-trash"></i>
-    `;
+    <input type="text" placeholder="Nome">
+    <i class="bi bi-trash-fill remover"></i>
+`;
 
     listaJogadores.appendChild(novoJogador);
 
@@ -83,30 +88,48 @@ btnAdicionar.addEventListener("click", function () {
     atualizarEventosRemover();
 });
 
-// Ativa os eventos nas lixeiras iniciais
+
 atualizarEventosRemover();
 
-function iniciarJogo(){
-    jogadores=[];
-    document.querySelectorAll(".lista-jogadores input").forEach(i=>{
-        if(i.value.trim()!="") jogadores.push(i.value.trim());
+function voltarParaInicio() {
+    telaJogadores.classList.add("hidden");
+    telaInicial.classList.remove("hidden");
+}
+
+function iniciarJogo() {
+    jogadores = [];
+    document.querySelectorAll(".lista-jogadores input").forEach(i => {
+        if (i.value.trim() != "") jogadores.push(i.value.trim());
     });
 
-    if(jogadores.length<4) return alert("Mínimo 4 jogadores");
+    let mensagem = document.getElementById("mensagemErro");
 
-   temaSelecionado = temas[Math.floor(Math.random() * temas.length)];
-    impostorIndex=Math.floor(Math.random()*jogadores.length);
+    if (jogadores.length < 4) {
+        mensagem.innerText = "O jogo precisa de no mínimo 4 jogadores para iniciar.";
+        mensagem.classList.remove("hidden");
+
+        setTimeout(() => {
+            mensagem.classList.add("hidden");
+        }, 3000);
+
+        return;
+    }
+
+    mensagem.classList.add("hidden");
+
+    temaSelecionado = temas[Math.floor(Math.random() * temas.length)];
+    impostorIndex = Math.floor(Math.random() * jogadores.length);
 
     gerarInteracoes();
 
     telaJogadores.classList.add("hidden");
     telaRevelar.classList.remove("hidden");
 
-    jogadorAtualRevelar=0;
+    jogadorAtualRevelar = 0;
     mostrarPapel();
 }
 
-function mostrarPapel(){
+function mostrarPapel() {
 
     papelRevelado = false;
 
@@ -121,17 +144,17 @@ function mostrarPapel(){
     botao.onclick = revelarPapel;
 }
 
-function revelarPapel(){
+function revelarPapel() {
 
     papelRevelado = true;
 
     document.getElementById("tituloRevelar").innerText =
         jogadores[jogadorAtualRevelar];
 
-    if(jogadorAtualRevelar === impostorIndex){
+    if (jogadorAtualRevelar === impostorIndex) {
         document.getElementById("infoRevelar").innerText =
             "😈 Você é o IMPOSTOR!\nTente descobrir o tema.";
-    }else{
+    } else {
         document.getElementById("infoRevelar").innerText =
             "🩺 Tema: " + temaSelecionado;
     }
@@ -141,22 +164,22 @@ function revelarPapel(){
     botao.onclick = proximoJogador;
 }
 
-function proximoJogador(){
+function proximoJogador() {
 
-    if(!papelRevelado) return;
+    if (!papelRevelado) return;
 
     jogadorAtualRevelar++;
 
-    if(jogadorAtualRevelar < jogadores.length){
+    if (jogadorAtualRevelar < jogadores.length) {
         mostrarPapel();
-    }else{
+    } else {
         telaRevelar.classList.add("hidden");
         telaPergunta.classList.remove("hidden");
         mostrarInteracao();
     }
 }
 
-function gerarInteracoes(){
+function gerarInteracoes() {
 
     paresPergunta = [];
     indiceInteracao = 0;
@@ -169,7 +192,7 @@ function gerarInteracoes(){
     let perguntasDisponiveis = [...perguntasBase];
     perguntasDisponiveis.sort(() => Math.random() - 0.5);
 
-    for(let i = 0; i < indices.length; i++){
+    for (let i = 0; i < indices.length; i++) {
 
         let perguntaDe = indices[i];
         let responde = indices[(i + 1) % indices.length];
@@ -182,9 +205,9 @@ function gerarInteracoes(){
     }
 }
 
-function mostrarInteracao(){
+function mostrarInteracao() {
 
-    if(indiceInteracao >= paresPergunta.length){
+    if (indiceInteracao >= paresPergunta.length) {
         irParaVotacao();
         return;
     }
@@ -197,21 +220,21 @@ function mostrarInteracao(){
     document.getElementById("textoPergunta").innerText = par.pergunta;
 }
 
-function proximaInteracao(){
+function proximaInteracao() {
     indiceInteracao++;
     mostrarInteracao();
 }
 
-/* VOTAÇÃO */
-function irParaVotacao(){
+
+function irParaVotacao() {
     telaPergunta.classList.add("hidden");
     telaVotacao.classList.remove("hidden");
-    votos=[];
-    votanteAtual=0;
+    votos = [];
+    votanteAtual = 0;
     prepararVotacao();
 }
 
-function prepararVotacao(){
+function prepararVotacao() {
 
     document.getElementById("tituloVotacao").innerText =
         jogadores[votanteAtual] + ", vote no impostor:";
@@ -228,11 +251,11 @@ function prepararVotacao(){
 
         btn.onclick = () => {
 
-            // remover destaque anterior
+
             document.querySelectorAll("#opcoesVoto button")
                 .forEach(b => b.classList.remove("selecionado"));
 
-            // destacar atual
+
             btn.classList.add("selecionado");
 
             votoSelecionado = index;
@@ -242,20 +265,20 @@ function prepararVotacao(){
         opcoes.appendChild(btn);
     });
 }
-function registrarVoto(){
+function registrarVoto() {
 
-    if(votos[votanteAtual] == null) return alert("Vote primeiro");
+    if (votos[votanteAtual] == null) return alert("Vote primeiro");
 
     votanteAtual++;
 
-    if(votanteAtual < jogadores.length){
+    if (votanteAtual < jogadores.length) {
         prepararVotacao();
-    }else{
+    } else {
         finalizarVotacao();
     }
 }
 
-function finalizarVotacao(){
+function finalizarVotacao() {
 
     telaVotacao.classList.add("hidden");
     telaResultado.classList.remove("hidden");
@@ -277,21 +300,20 @@ function finalizarVotacao(){
     let texto = "O impostor era: " + jogadores[impostorIndex] + "\n\n";
     texto += "Mais votado: " + jogadores[maisVotado] + "\n\n";
 
-    if(impostorFoiDescoberto){
+    if (impostorFoiDescoberto) {
         texto += "🎯 O impostor foi descoberto nos votos!";
-    }else{
+    } else {
         texto += "😈 O impostor NÃO foi descoberto nos votos!";
     }
 
     document.getElementById("resultadoTexto").innerText = texto;
 
-    // Mostrar botão continuar
     let botao = document.getElementById("botaoContinuar");
     botao.classList.remove("hidden");
     botao.onclick = irParaEscolhaTema;
 }
 
-function irParaEscolhaTema(){
+function irParaEscolhaTema() {
     telaResultado.classList.add("hidden");
     telaImpostor.classList.remove("hidden");
 
@@ -300,51 +322,48 @@ function irParaEscolhaTema(){
     mostrarOpcoesImpostor();
 }
 
-/* IMPOSTOR */
-function mostrarOpcoesImpostor(){
-    let opcoes=document.getElementById("opcoesTema");
-    opcoes.innerHTML="";
+function mostrarOpcoesImpostor() {
+    let opcoes = document.getElementById("opcoesTema");
+    opcoes.innerHTML = "";
 
-    let alternativas=[temaSelecionado];
+    let alternativas = [temaSelecionado];
 
-    while(alternativas.length<4){
-        let aleatorio=temas[Math.floor(Math.random()*temas.length)];
-        if(!alternativas.includes(aleatorio)){
+    while (alternativas.length < 4) {
+        let aleatorio = temas[Math.floor(Math.random() * temas.length)];
+        if (!alternativas.includes(aleatorio)) {
             alternativas.push(aleatorio);
         }
     }
 
-    alternativas.sort(()=>Math.random()-0.5);
+    alternativas.sort(() => Math.random() - 0.5);
 
-    alternativas.forEach(op=>{
-        let btn=document.createElement("button");
-        btn.innerText=op;
-        btn.onclick=()=> verificarResultado(op);
+    alternativas.forEach(op => {
+        let btn = document.createElement("button");
+        btn.innerText = op;
+        btn.onclick = () => verificarResultado(op);
         opcoes.appendChild(btn);
     });
 }
 
-function verificarResultado(escolhaImpostor){
+function verificarResultado(escolhaImpostor) {
 
     telaImpostor.classList.add("hidden");
     telaResultado.classList.remove("hidden");
 
     let textoFinal = "O impostor era: " + jogadores[impostorIndex] + "\n\n";
 
-    // Resultado da votação
-    if(impostorFoiDescoberto){
+    if (impostorFoiDescoberto) {
         textoFinal += "📌 Foi descoberto nos votos.\n";
-    }else{
+    } else {
         textoFinal += "📌 Não foi descoberto nos votos.\n";
     }
 
-    // Resultado da tentativa de adivinhação
     textoFinal += "\nO impostor escolheu: " + escolhaImpostor + "\n";
     textoFinal += "Tema correto: " + temaSelecionado + "\n\n";
 
-    if(escolhaImpostor === temaSelecionado){
+    if (escolhaImpostor === temaSelecionado) {
         textoFinal += "🏆 O impostor ACERTOU o tema!";
-    }else{
+    } else {
         textoFinal += "❌ O impostor ERROU o tema!";
     }
 

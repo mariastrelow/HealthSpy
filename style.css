@@ -43,25 +43,27 @@ input{
 }
 
 .logo {
-    width: 220px;
+    width: 280px;
     margin-bottom: 40px;
 }
 
 .btn-jogar {
-    width: 220px;
-    padding: 14px;
-    background-color: #1E2240;
-    color: #cad5de;
+    width: 260px;
+    padding: 17px;
+    background-color: #58C4B6;
+    color: #1E2240;
     border: none;
     border-radius: 14px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     cursor: pointer;
+    border: 4px solid #1E2240;
+
 }
 
 .btn-jogar:hover {
     opacity: 0.9;
-    background-color: #0a0c20;
+    background-color: #459b8f;
 }
 
 .como-jogar {
@@ -79,7 +81,7 @@ input{
 
 .tela-jogadores {
     min-height: 100vh;
-    padding: 40px 20px;
+    padding: 10px 50px;
     text-align: center;
 }
 
@@ -101,8 +103,8 @@ input{
     border-radius: 12px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 5px 15px;
+    gap: 10px;
+    padding: 4px 15px;
     margin-bottom: 15px;
 }
 
@@ -112,12 +114,19 @@ input{
     color: white;
     outline: none;
     font-size: 20px;
-    width: 80%;
+    flex: 1; 
 }
 
 .input-jogador i {
-    color: white;
+    font-size: 25px;
+    color: #cad5de;
     cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.input-jogador i:hover {
+    transform: scale(1.2);
+    color: #cad5de;
 }
 
 .area-adicionar {
@@ -129,7 +138,7 @@ input{
 .btn-adicionar {
     background-color: #58C4B6;
     color: #1E2240;
-    border: 2px solid #1E2240;
+    border: 4px solid #1E2240;
     padding: 8px 16px;
     border-radius: 12px;
     margin-top: 10px;
@@ -139,12 +148,12 @@ input{
 
 .btn-iniciar {
     display: block;
-    margin: 40px auto 0;
+    margin: 4px auto 0;
     width: 200px;
     padding: 14px;
     background-color: #58C4B6;
     color: #1E2240;
-    border: 2px solid #1E2240;
+    border: 4px solid #1E2240;
     border-radius: 16px;
     font-size: 18px;
     font-weight: 600;
@@ -152,4 +161,44 @@ input{
 }
 .hidden{
     display: none;
+}
+
+.mensagem-erro {
+    margin-top: 15px;
+    color: #ff4d4d;
+    font-weight: 600;
+    background-color: #ffe6e6;
+    padding: 10px;
+    border-radius: 10px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    animation: aparecer 0.3s ease;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn-voltar{
+    background: transparent;
+    border: none;
+    font-size: 32px;
+    color: #1E2240;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 10px;
+    transition: 0.2s;
+}
+
+.btn-voltar:hover{
+    transform: scale(1.2);
+    color: #58C4B6;
 }
