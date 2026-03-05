@@ -75,12 +75,14 @@ function mostrarJogadores() {
 }
 function mostrarComoJogar() {
     telaInicial.classList.add("hidden");
+    telaTemas.classList.add("hidden");
     document.getElementById("telaComoJogar").classList.remove("hidden");
 }
 function voltarInicio() {
     document.getElementById("telaComoJogar").classList.add("hidden");
     telaInicial.classList.remove("hidden");
 }
+
 
 // Adicionar jogadores
 const listaJogadores = document.querySelector(".lista-jogadores");
@@ -158,14 +160,13 @@ function iniciarJogo() {
 function configurarEscolhaTema() {
     document.querySelectorAll(".btn-tema").forEach(btn => {
         btn.addEventListener("click", () => {
-            temaSelecionado = btn.dataset.tema; // "habitos", "corpo", etc.
-            // sorteia uma palavra secreta desse tema
+            temaSelecionado = btn.dataset.tema;
             palavraSecreta = dadosTemas[temaSelecionado].palavras[
                 Math.floor(Math.random() * dadosTemas[temaSelecionado].palavras.length)
             ];
 
-            telaTemas.classList.add("hidden"); // esconde tela de temas
-            iniciarFaseRevelar(); // próxima fase do jogo
+            telaTemas.classList.add("hidden"); // esconde a tela de temas quando clica
+            iniciarFaseRevelar(); 
         });
     });
 }
@@ -227,10 +228,10 @@ function revelarPapel() {
 
     if (jogadorAtualRevelar === impostorIndex) {
         document.getElementById("infoRevelar").innerText =
-            "😈 Você é o IMPOSTOR!\nTente descobrir o tema.";
+            "Você é o ESPIÃO!\nTente descobrir o tema.";
     } else {
         document.getElementById("infoRevelar").innerText =
-            "🩺 Palavra secreta: " + palavraSecreta;
+            "Palavra secreta: " + palavraSecreta;
     }
 
     let botao = document.querySelector("#telaRevelar button");
