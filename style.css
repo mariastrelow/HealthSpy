@@ -156,7 +156,7 @@ input {
 }
 
 #tela-como-jogar h2 {
-    margin-bottom: 35px; /* aumenta a distância do card */
+    margin-bottom: 35px;
     font-size: 2rem;
     color: #1E2240;
     text-align: center;
@@ -534,15 +534,6 @@ input {
     margin: auto;
 }
 
-/* POSSÍVEL CSS ANTIGO (existe outra versão do card-pergunta acima) */
-/*
-.card-pergunta {
-    background: #d9e7a8;
-    width: 320px;
-    min-height: 140px;
-}
-*/
-
 .card-pergunta p {
     font-size: 20px;
     font-weight: 600;
@@ -643,7 +634,7 @@ input {
 }
 
 #telaVotacao .btn-voto {
-    margin-top: 30px;/* provavelmente apenas para teste */
+    margin-top: 30px;
 }
 
 #telaVotacao .mensagem-erro {
@@ -681,6 +672,7 @@ input {
 /* =========================
    TELA IMPOSTOR
    ========================= */
+
 #telaImpostor {
     position: fixed;
     top: 0;
@@ -741,10 +733,17 @@ input {
     transition: 0.2s;
 }
 
+#telaImpostor button:hover {
+    background: #1E2240;
+    color: #58C4B6;
+    transform: scale(1.08);
+    transition: 0.2s;
+}
 
 /* =========================
    TELA RESULTADO VOTOS
    ========================= */
+
 #telaResultado{
     min-height:100vh;
 
