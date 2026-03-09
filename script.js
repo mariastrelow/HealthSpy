@@ -12,7 +12,7 @@ let palavraSecreta;
 
 let temas = ["habitos", "corpo", "doencas", "remedios"];
 
-// Palavras e perguntas específicas de cada tema
+
 const dadosTemas = {
     habitos: {
         palavras: ["Dormir bem", "Mexer no celular", "Escovar os dentes", "Tomar banho", "Alongamento"],
@@ -56,7 +56,6 @@ const dadosTemas = {
     }
 };
 
-// capturando telas
 const telaInicial = document.getElementById("telaInicial");
 const telaJogadores = document.getElementById("telaJogadores");
 const telaTemas = document.getElementById("telaTemas");
@@ -68,7 +67,7 @@ const telaResultado = document.getElementById("telaResultado");
 const telaComoJogar = document.getElementById("telaComoJogar");
 
 
-// Mostrar telas
+
 function mostrarJogadores() {
     telaInicial.classList.add("hidden");
     telaJogadores.classList.remove("hidden");
@@ -84,7 +83,6 @@ function voltarInicio() {
 }
 
 
-// Adicionar jogadores
 const listaJogadores = document.querySelector(".lista-jogadores");
 const btnAdicionar = document.querySelector(".btn-adicionar");
 
@@ -112,7 +110,7 @@ btnAdicionar.addEventListener("click", function () {
     novoJogador.classList.add("input-jogador");
 
     novoJogador.innerHTML = `
-    <input type="text" placeholder="Nome">
+    <input type="text" placeholder="Nome" maxlength="15">
     <i class="bi bi-trash-fill remover"></i>
 `;
 
@@ -131,6 +129,10 @@ function voltarParaInicio() {
     telaInicial.classList.remove("hidden");
 }
 
+function voltarParaJogadores() {
+    telaTemas.classList.add("hidden");
+    telaJogadores.classList.remove("hidden");
+}
 
 function iniciarJogo() {
     jogadores = [];
@@ -165,19 +167,18 @@ function configurarEscolhaTema() {
                 Math.floor(Math.random() * dadosTemas[temaSelecionado].palavras.length)
             ];
 
-            telaTemas.classList.add("hidden"); // esconde a tela de temas quando clica
+            telaTemas.classList.add("hidden"); 
             iniciarFaseRevelar(); 
         });
     });
 }
-// Chame isso no início do script ou quando os jogadores forem validados
-configurarEscolhaTema();
 
-// Escolher tema
+
+configurarEscolhaTema();
 
 
 function iniciarFaseRevelar() {
-    // escolhe palavras do tema
+    
     const palavras = {
         habitos: ["Dormir bem", "Mexer no celular", "Tomar banho", "Escovar dentes", "Dormir tarde"],
         corpo: ["Mão", "Pé", "Boca", "Olho", "Coração"],
@@ -192,51 +193,53 @@ function iniciarFaseRevelar() {
         remedios: ["É tomado todo dia?", "Alivia dor?", "Tem efeitos colaterais?", "Precisa de receita?", "Pode ser comprado na farmácia?"]
     };
 
-    temaSelecionado = temaSelecionado; // já definido no clique do botão
+    temaSelecionado = temaSelecionado; 
 
-    // associa palavras e perguntas do tema
     perguntasBase = perguntasPorTema[temaSelecionado];
     palavrasDoTema = palavras[temaSelecionado];
 
-    // sorteia o impostor
     impostorIndex = Math.floor(Math.random() * jogadores.length);
 
-    // embaralha as interações
     gerarInteracoes();
 
-    // mostra tela de revelar
     telaRevelar.classList.remove("hidden");
     jogadorAtualRevelar = 0;
     mostrarPapel();
 }
-// Mostrar papel do jogador
-function mostrarPapel() {
-    papelRevelado = false;
-    document.getElementById("tituloRevelar").innerText =
-        "Passe o celular para " + jogadores[jogadorAtualRevelar];
-    document.getElementById("infoRevelar").innerText =
-        "Clique abaixo para revelar seu papel.";
 
-    let botao = document.querySelector("#telaRevelar button");
-    botao.innerText = "Revelar papel";
-    botao.onclick = revelarPapel;
+function mostrarPapel() {
+
+    papelRevelado = false;
+
+    document.getElementById("tituloRevelar").innerText = "Passe o dispositivo para:"; 
+    document.getElementById("tituloJogador").innerText = jogadores[jogadorAtualRevelar];
+
+    document.getElementById("botaoRevelar").style.display = "block";
+    document.getElementById("botaoPassar").style.display = "none";
+
+    document.getElementById("tituloPapel").style.display = "none";
+    document.getElementById("descricaoPapel").style.display = "none";
 }
 
+
 function revelarPapel() {
+
     papelRevelado = true;
-    document.getElementById("tituloRevelar").innerText = jogadores[jogadorAtualRevelar];
+
+    document.getElementById("botaoRevelar").style.display = "none";
+    document.getElementById("botaoPassar").style.display = "block";
+
+    document.getElementById("tituloPapel").style.display = "block";
+    document.getElementById("descricaoPapel").style.display = "block";
 
     if (jogadorAtualRevelar === impostorIndex) {
-        document.getElementById("infoRevelar").innerText =
-            "Você é o ESPIÃO!\nTente descobrir o tema.";
+        document.getElementById("tituloPapel").innerText = "Você é o ESPIÃO";
+        document.getElementById("descricaoPapel").innerText =
+            "Junte pistas para descobrir o tema secreto, mas não seja descoberto.";
     } else {
-        document.getElementById("infoRevelar").innerText =
-            "Palavra secreta: " + palavraSecreta;
+        document.getElementById("tituloPapel").innerText = "Palavra secreta:";
+        document.getElementById("descricaoPapel").innerText = palavraSecreta;
     }
-
-    let botao = document.querySelector("#telaRevelar button");
-    botao.innerText = "Ocultar e passar";
-    botao.onclick = proximoJogador;
 }
 
 function proximoJogador() {
@@ -251,7 +254,6 @@ function proximoJogador() {
     }
 }
 
-// Gera interações usando perguntas do tema
 function gerarInteracoes() {
     paresPergunta = [];
     indiceInteracao = 0;
@@ -274,7 +276,13 @@ function gerarInteracoes() {
     }
 }
 
-// Mostrar perguntas na tela
+function voltarInteracao() {
+    if (indiceInteracao > 0) {
+        indiceInteracao--;
+        mostrarInteracao();
+    }
+}
+
 function mostrarInteracao() {
     if (indiceInteracao >= paresPergunta.length) {
         irParaVotacao();
@@ -282,9 +290,19 @@ function mostrarInteracao() {
     }
 
     let par = paresPergunta[indiceInteracao];
-    document.getElementById("infoPergunta").innerText =
-        jogadores[par.perguntaDe] + " pergunta para " + jogadores[par.responde];
+    document.getElementById("infoPergunta").innerHTML =
+    `<b>${jogadores[par.perguntaDe]}</b><br>
+     pergunta para:<br>
+     <b>${jogadores[par.responde]}</b>`;
     document.getElementById("textoPergunta").innerText = par.pergunta;
+
+    const btnVoltar = document.getElementById("btnVoltar");
+
+    if (indiceInteracao === 0) {
+        btnVoltar.style.display = "none";
+    } else {
+        btnVoltar.style.display = "inline-block";
+    }
 }
 
 function proximaInteracao() {
@@ -292,7 +310,7 @@ function proximaInteracao() {
     mostrarInteracao();
 }
 
-// Votação e resultados (mantidos como estava)
+
 function irParaVotacao() {
     telaPergunta.classList.add("hidden");
     telaVotacao.classList.remove("hidden");
@@ -322,35 +340,66 @@ function prepararVotacao() {
 }
 
 function registrarVoto() {
-    if (votos[votanteAtual] == null) return alert("Vote primeiro");
+
+let mensagem = document.getElementById("mensagemErroVoto");
+
+    if (votos[votanteAtual] == null) {
+
+        mensagem.innerText = "Vote primeiro!";
+        mensagem.classList.remove("hidden");
+
+        setTimeout(() => {
+            mensagem.classList.add("hidden");
+        }, 3000);
+
+        return;
+    }
+
     votanteAtual++;
+
     if (votanteAtual < jogadores.length) {
         prepararVotacao();
     } else {
         finalizarVotacao();
     }
 }
-
 function finalizarVotacao() {
     telaVotacao.classList.add("hidden");
     telaResultado.classList.remove("hidden");
 
     let contagem = {};
     votos.forEach(v => contagem[v] = (contagem[v] || 0) + 1);
-    let maisVotado = parseInt(Object.keys(contagem).reduce((a, b) => contagem[a] > contagem[b] ? a : b));
+
+    let maisVotado = parseInt(
+        Object.keys(contagem).reduce((a, b) =>
+            contagem[a] > contagem[b] ? a : b
+        )
+    );
+
     impostorFoiDescoberto = (maisVotado === impostorIndex);
 
-    let texto = "O impostor era: " + jogadores[impostorIndex] + "\n\n";
-    texto += "Mais votado: " + jogadores[maisVotado] + "\n\n";
-    texto += impostorFoiDescoberto ? "🎯 O impostor foi descoberto nos votos!" : "😈 O impostor NÃO foi descoberto nos votos!";
-    document.getElementById("resultadoTexto").innerText = texto;
+    let texto = `
+        <span class="resultado-label">O jogador mais votado:</span>
+        <span class="resultado-nome">${jogadores[maisVotado]}</span>
+
+        <span class="resultado-label">O espião era:</span>
+        <span class="resultado-nome">${jogadores[impostorIndex]}</span>
+
+        <span class="resultado-final">
+            ${impostorFoiDescoberto
+                ? "O espião foi descoberto!"
+                : "O espião não foi descoberto nos votos"}
+        </span>
+    `;
+
+    document.getElementById("resultadoTexto").innerHTML = texto;
 
     let botao = document.getElementById("botaoContinuar");
     botao.classList.remove("hidden");
     botao.onclick = mostrarOpcoesImpostor;
 }
 
-// Tela do impostor
+
 function mostrarOpcoesImpostor() {
     telaResultado.classList.add("hidden");
     telaImpostor.classList.remove("hidden");
@@ -375,15 +424,18 @@ function mostrarOpcoesImpostor() {
     });
 }
 
-function verificarResultado(escolhaImpostor) {
+function verificarResultado(escolhaImpostor){
+
     telaImpostor.classList.add("hidden");
-    telaResultado.classList.remove("hidden");
+    telaResultadoFinal.classList.remove("hidden");
 
-    let textoFinal = "O impostor era: " + jogadores[impostorIndex] + "\n\n";
-    textoFinal += impostorFoiDescoberto ? "📌 Foi descoberto nos votos.\n" : "📌 Não foi descoberto nos votos.\n";
-    textoFinal += "\nO impostor escolheu: " + escolhaImpostor + "\n";
-    textoFinal += "Tema correto: " + temaSelecionado + "\n\n";
-    textoFinal += escolhaImpostor === temaSelecionado ? "🏆 O impostor ACERTOU o tema!" : "❌ O impostor ERROU o tema!";
+    document.getElementById("escolhaEspiao").innerText = escolhaImpostor;
 
-    document.getElementById("resultadoTexto").innerText = textoFinal;
+    document.getElementById("temaCorreto").innerText = palavraSecreta;
+
+    if(escolhaImpostor === palavraSecreta){
+        document.getElementById("resultadoEspiao").innerText = "O espião acertou o tema!";
+    } else {
+        document.getElementById("resultadoEspiao").innerText = "O espião não acertou o tema";
+    }
 }

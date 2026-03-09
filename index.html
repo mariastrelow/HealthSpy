@@ -14,6 +14,8 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -31,9 +33,9 @@
 
         <div class="tela-como-jogar hidden" id="telaComoJogar">
 
-            <div class="card">
+            <h2>Como Jogar</h2>
 
-                <h2>Como Jogar</h2>
+            <div class="card-comojogar">
 
                 <p>
                     Insira de <strong>4 a 8 jogadores</strong>.<br><br>
@@ -48,10 +50,10 @@
 
                     No final, o espião pode tentar adivinhar o tema para vencer.
                 </p>
-
-                <button class="btn-iniciar" onclick="voltarInicio()">Voltar</button>
-
             </div>
+            
+            <button class="btn-iniciar" onclick="voltarInicio()">Voltar</button>
+
 
         </div>
 
@@ -62,28 +64,26 @@
             <div class="lista-jogadores">
 
                 <div class="input-jogador fixo">
-                    <input type="text" placeholder="Nome">
+                    <input type="text" placeholder="Nome" maxlength="15">
                 </div>
 
                 <div class="input-jogador fixo">
-                    <input type="text" placeholder="Nome">
+                    <input type="text" placeholder="Nome" maxlength="15">
                 </div>
 
                 <div class="input-jogador fixo">
-                    <input type="text" placeholder="Nome">
+                    <input type="text" placeholder="Nome" maxlength="15">
                 </div>
 
                 <div class="input-jogador fixo">
-                    <input type="text" placeholder="Nome">
+                    <input type="text" placeholder="Nome" maxlength="15">
                 </div>
 
             </div>
 
             <div class="area-adicionar">
 
-                <button class="btn-voltar" onclick="voltarParaInicio()">
-                    <i class="bi bi-arrow-left"></i>
-                </button>
+                <button class="btn-voltar" onclick="voltarParaInicio()">&lt</button>
 
                 <button class="btn-adicionar">Adicionar</button>
 
@@ -115,43 +115,100 @@
                     <p>Medicamentos para tratamento.</p>
                 </button>
             </div>
+            <button class="btn-voltar voltar-jogadores" onclick="voltarParaJogadores()">&lt;</button>
         </div>
 
 
         <div id="telaRevelar" class="hidden">
+
+            <h2 id="tituloRevelar"></h2>
+            <h1 id="tituloJogador"></h1>
+
             <div class="card">
-                <h2 id="tituloRevelar"></h2>
-                <p id="infoRevelar"></p>
-                <button onclick="proximoJogador()">Próximo</button>
+
+                <button id="botaoRevelar" class="botao-revelar" onclick="revelarPapel()">
+                    Clique aqui para revelar seu papel
+                </button>
+
+                <h2 id="tituloPapel"></h2>
+                <p id="descricaoPapel"></p>
+
             </div>
+
+            <button id="botaoPassar" class="botao-passar" onclick="proximoJogador()">
+                Ocultar e passar
+            </button>
+
         </div>
 
         <div id="telaPergunta" class="hidden">
-            <div class="card">
-                <h2 id="infoPergunta"></h2>
+
+            <h1 class="titulo-pergunta" id="infoPergunta"></h1>
+
+            <div class="card-pergunta">
                 <p id="textoPergunta"></p>
-                <button onclick="proximaInteracao()">Próximo</button>
             </div>
+
+            <div class="botoes-pergunta">
+                <button id="btnVoltar" class="btn-voltar" onclick="voltarInteracao()">&lt;</button>
+                <button class="btn-proximo" onclick="proximaInteracao()">Próximo</button>
+            </div>
+
+
         </div>
 
         <div id="telaVotacao" class="hidden">
             <h2 id="tituloVotacao"></h2>
+
             <div id="opcoesVoto"></div>
-            <button onclick="registrarVoto()">Confirmar voto</button>
+
+            <button class="btn-voto" onclick="registrarVoto()">Confirmar voto</button>
+
+            <p id="mensagemErroVoto" class="mensagem-erro hidden"></p>
+        </div>
+
+
+        <div id="telaResultado" class="hidden">
+            <div class="card-resultado">
+                <h2>Resultado</h2>
+
+                <p id="resultadoTexto"></p>
+            </div>
+            <div class="botoes-resultado">
+                <button id="botaoContinuar" class="hidden">Continuar</button>
+            </div>
         </div>
 
         <div id="telaImpostor" class="hidden">
-            <div class="card">
-                <h2>Impostor, escolha o tema:</h2>
+            <div class="card-escolha">
+                <h2>Espião, tente<br>acertar o tema:</h2>
                 <div id="opcoesTema"></div>
             </div>
         </div>
 
-        <div id="telaResultado" class="hidden">
-            <div class="card">
+        <div id="telaResultadoFinal" class="hidden">
+
+            <div class="card-resultado-final">
+
                 <h2>Resultado</h2>
-                <p id="resultadoTexto"></p>
-                <button id="botaoContinuar" class="hidden">Continuar</button>
+
+                <div class="resultado-bloco">
+                    <span class="resultado-label">O espião escolheu:</span>
+                    <span id="escolhaEspiao" class="resultado-valor"></span>
+                </div>
+
+                <div class="resultado-bloco">
+                    <span class="resultado-label">A resposta correta é:</span>
+                    <span id="temaCorreto" class="resultado-valor"></span>
+                </div>
+
+                <div class="resultado-bloco">
+                    <span id="resultadoEspiao" class="resultado-valor"></span>
+                </div>
+
+
+            </div>
+            <div class="botoes-resultado">
                 <button onclick="location.reload()">Jogar novamente</button>
             </div>
         </div>

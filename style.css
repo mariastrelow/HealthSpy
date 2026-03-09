@@ -1,38 +1,101 @@
-body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg,#cad5de,#cad5de);
-    text-align:center;
+/* =========================
+   ESTILOS GERAIS DO SITE
+   ========================= */
+
+body {
+    margin: 0;
     font-family: 'Poppins', sans-serif;
+    text-align: center;
+
+    background-color: #cad5de;
+
+    background-image: url("Imagens/fundo.png");
+    background-repeat: repeat;
+    background-size: 1000px;
+    background-position: top left;
 }
 
-.container{ padding:20px; }
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    z-index: 0;
+}
 
-h1,h2{ color:#1E2240; font-weight: 600;}
+body>* {
+    position: relative;
+    z-index: 1;
+}
 
+.container {
+    padding: 20px;
+}
 
-.selecionado{
-    background-color: #ff7675 !important;
+h1,
+h2 {
+    color: #1E2240;
+    font-weight: 600;
+}
+
+input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.selecionado {
+    background-color: #1E2240 !important;
+    color: #58C4B6;
     transform: scale(1.05);
 }
 
-input{
-    padding:10px;
-    border-radius:8px;
-    border:1px solid #ccc;
-    margin:5px;
+
+/* =========================
+   MENSAGENS DE ERRO
+   ========================= */
+
+.mensagem-erro {
+    margin-top: 15px;
+    color: #ff4d4d;
+    font-weight: 600;
+    background-color: #ffe6e6;
+    padding: 10px;
+    border-radius: 10px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    animation: aparecer 0.3s ease;
 }
 
-.card{
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 5px 10px rgba(0,0,0,0.1);
-    margin:20px auto;
-    max-width:400px;
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.hidden{ display:none; }
+
+/* =========================
+   TELA INICIAL
+   ========================= */
 
 .tela-inicial {
     height: 100vh;
@@ -58,26 +121,77 @@ input{
     font-weight: 600;
     cursor: pointer;
     border: 4px solid #1E2240;
-
 }
 
 .btn-jogar:hover {
-    transform: scale(1.2);
+    background: #1E2240;
+    color: #58C4B6;
+    transform: scale(1.1);
     transition: transform 0.2s ease-in-out;
 }
 
 .como-jogar {
     margin-top: 15px;
     color: #58C4B6;
-    font-weight: 500;
-    cursor: pointer;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .como-jogar:hover {
-    color: #459b8f;
-
+    color: #1E2240;
+    transform: scale(1.08);
+    transition: 0.2s;
 }
+
+
+/* =========================
+   TELA COMO JOGAR
+   ========================= */
+
+#tela-como-jogar {
+    padding: 40px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#tela-como-jogar h2 {
+    margin-bottom: 35px; /* aumenta a distância do card */
+    font-size: 2rem;
+    color: #1E2240;
+    text-align: center;
+}
+
+.card-comojogar {
+    background: #ffffff;
+    color: #1E2240;
+
+    width: 350px;
+    min-height: 280px;
+
+    border-radius: 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 25px;
+    margin: auto;
+    margin-bottom: 40px;
+
+    text-align: center;
+}
+
+
+.card-comojogar p{
+    line-height: 1.5;
+}
+
+
+/* =========================
+   TELA JOGADORES
+   ========================= */
 
 .tela-jogadores {
     min-height: 100vh;
@@ -88,6 +202,7 @@ input{
 .tela-jogadores h2 {
     font-weight: 600;
     color: #1E2240;
+    font-size: 35px;
 }
 
 .tela-jogadores span {
@@ -122,7 +237,7 @@ input{
     font-size: 20px;
     color: #ff6b6b;
     cursor: pointer;
-    flex-shrink: 0; 
+    flex-shrink: 0;
 }
 
 .input-jogador i:hover {
@@ -148,13 +263,15 @@ input{
 }
 
 .btn-adicionar:hover {
+    background: #1E2240;
+    color: #58C4B6;
     transform: scale(1.1);
     transition: transform 0.2s ease-in-out;
 }
 
 .btn-iniciar {
     display: block;
-    margin: 4px auto 0;
+    margin: 10px auto 0;
     width: 200px;
     padding: 14px;
     background-color: #58C4B6;
@@ -167,100 +284,42 @@ input{
 }
 
 .btn-iniciar:hover {
-    transform: scale(1.1); 
-    transition: transform 0.2s ease-in-out;
-}
-
-.hidden{
-    display: none;
-}
-
-.mensagem-erro {
-    margin-top: 15px;
-    color: #ff4d4d;
-    font-weight: 600;
-    background-color: #ffe6e6;
-    padding: 10px;
-    border-radius: 10px;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    animation: aparecer 0.3s ease;
-}
-
-@keyframes aparecer {
-    from {
-        opacity: 0;
-        transform: translateY(-5px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.btn-voltar{
-    background: transparent;
-    border: none;
-    font-size: 32px;
-    color: #1E2240;
-    cursor: pointer;
-    margin-right: 10px;
-    margin-top: 10px;
-    transition: 0.2s;
-}
-
-.btn-voltar:hover{
-    transform: scale(1.2);
+    background: #1E2240;
     color: #58C4B6;
-}
-
-.temas-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; 
-    justify-content: center;
-    flex-direction: column;
-}
-
-.btn-tema {
-    width: 300px;
-    min-height: 110px;
-    border: none;
-    border-radius: 12px;
-    background-size: cover;      
-    background-position: center;  
-    background-repeat: no-repeat; 
-    cursor: pointer;
-    padding: 5px 0 5px 0; 
-    gap: 2px;
-    font-weight: 600;
-    text-align: center;
-    color: #1E2240; 
-    font-size: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
-.btn-tema:hover {
     transform: scale(1.1);
     transition: transform 0.2s ease-in-out;
 }
 
-.tema1 { background-image: url('Imagens/temaHabitos.png'); }
-.tema2 { background-image: url('Imagens/temaCorpo.png'); }
-.tema3 { background-image: url('Imagens/temaDoencas.png'); }
-.tema4 { background-image: url('Imagens/temaRemedios.png'); }
+.btn-voltar {
+    padding: 12px 18px;
 
-
-.btn-tema p {
-    font-size: 14px;
-    font-weight: 300;
-    margin: 0;
-    margin-top: -5px; 
+    background: #58C4B6;
     color: #1E2240;
+
+    border: 4px solid #1E2240;
+    border-radius: 14px;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    margin-right: 10px;
+    margin-top: 10px;
+    transition: 0.2s;
+
+    cursor: pointer;
 }
+
+.btn-voltar:hover {
+    background: #1E2240;
+    color: #58C4B6;
+    transform: scale(1.08);
+    transition: 0.2s;
+}
+
+
+/* =========================
+   TELA TEMAS
+   ========================= */
 
 .tela-temas {
     padding: 10px;
@@ -271,6 +330,552 @@ input{
     justify-content: center;
 }
 
-.hidden {
-    display: none !important;
+.temas-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.btn-tema {
+    width: 300px;
+    min-height: 110px;
+
+    border: none;
+    border-radius: 12px;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    cursor: pointer;
+
+    padding: 5px 0;
+
+    font-weight: 600;
+    text-align: center;
+    color: #1E2240;
+    font-size: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.btn-tema:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.btn-tema p {
+    font-size: 14px;
+    font-weight: 300;
+    margin: 0;
+    margin-top: -5px;
+    color: #1E2240;
+}
+
+.tema1 {
+    background-image: url('Imagens/temaHabitos.png');
+}
+
+.tema2 {
+    background-image: url('Imagens/temaCorpo.png');
+}
+
+.tema3 {
+    background-image: url('Imagens/temaDoencas.png');
+}
+
+.tema4 {
+    background-image: url('Imagens/temaRemedios.png');
+}
+
+
+/* =========================
+   TELA REVELAR PAPEL
+   ========================= */
+
+#telaRevelar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 90vh;
+}
+
+
+.card {
+    background: #ffffff;
+    width: 350px;
+    height: 280px;
+
+    border-radius: 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    margin: auto;
+}
+
+.botao-revelar {
+    width: 100%;
+    height: 100%;
+    background: white;
+    color: #1E2240; 
+    font-size: 22px;
+    font-weight: 600;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.botao-revelar:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.botao-passar {
+    margin-top: 25px;
+    padding: 14px;
+    background-color: #58C4B6;
+    color: #1E2240;
+    border: 4px solid #1E2240;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+
+    display: none;
+    align-self: center;
+}
+
+.botao-passar:hover {
+   background: #1E2240;
+    color: #58C4B6;
+    transform: scale(1.08);
+    transition: 0.2s; 
+}
+
+#tituloPapel {
+    display: none;
+}
+
+#descricaoPapel {
+    font-size: 18px;
+    color:#1E2240;
+    display: none;
+}
+
+#tituloRevelar {
+    font-size: 28px;
+    padding: 80px 0px 0px 0px;
+}
+
+#tituloJogador {
+    font-size: 40px;
+    font-weight: 800;
+    padding: 5px 0px 0px 0px;
+}
+
+
+/* =========================
+   TELA PERGUNTA
+   ========================= */
+
+#telaPergunta {
+    min-height: 90vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.titulo-pergunta {
+    color: #1E2240;
+    font-size: 32px;
+    text-align: center;
+}
+
+#infoPergunta {
+    font-size: 22px;
+    padding: 50px 0px 0px 0px;
+    text-align: center;
+    color: #1E2240;
+    line-height: 1.3;
+}
+
+#infoPergunta b {
+    font-size: 32px;
+    font-weight: 900;
+}
+
+.card-pergunta {
+    background: #ffffff;
+    width: 390px;
+    height: 280px;
+
+    border-radius: 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    margin: auto;
+}
+
+/* POSSÍVEL CSS ANTIGO (existe outra versão do card-pergunta acima) */
+/*
+.card-pergunta {
+    background: #d9e7a8;
+    width: 320px;
+    min-height: 140px;
+}
+*/
+
+.card-pergunta p {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1E2240;
+    text-align: center;
+}
+
+.botoes-pergunta {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.btn-proximo {
+    margin-top: 10px;
+    padding: 12px 28px;
+
+    background: #58C4B6;
+    color: #1E2240;
+
+    border: 4px solid #1E2240;
+    border-radius: 14px;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.btn-proximo:hover {
+    background: #1E2240;
+    color: #58C4B6;
+    transform: scale(1.08);
+    transition: 0.2s;
+}
+
+
+/* =========================
+   TELA VOTAÇÃO
+   ========================= */
+
+#telaVotacao {
+    position: relative;
+
+    min-height: 70vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 5px;
+}
+
+#tituloVotacao {
+    padding-top: 20px;
+}
+
+#opcoesVoto {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+#opcoesVoto button {
+    width: 220px;
+    padding: 8px 20px;
+    margin-top: 6px;
+}
+
+#opcoesVoto button:hover {
+    background: #1E2240;
+    color: #58C4B6;
+    transform: scale(1.08);
+    transition: 0.2s;
+}
+
+#opcoesVoto button.selecionado {
+    background-color: #1E2240;
+    color: #58C4B6;
+    transform: scale(1.05);
+}
+
+#telaVotacao button {
+    padding: 12px 28px;
+
+    background: #58C4B6;
+    color: #1E2240;
+
+    border: 4px solid #1E2240;
+    border-radius: 14px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+#telaVotacao .btn-voto {
+    margin-top: 30px;/* provavelmente apenas para teste */
+}
+
+#telaVotacao .mensagem-erro {
+    position: absolute;
+    top: 100%;
+    margin-top: -10px;
+
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 300px;
+    max-width: 260px;
+
+    padding: 8px 16px;
+
+    text-align: center;
+
+    opacity: 0;
+    animation: subirMensagem 0.3s ease forwards;
+}
+
+@keyframes subirMensagem {
+    from {
+        transform: translateX(-50%) translateY(15px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+
+/* =========================
+   TELA IMPOSTOR
+   ========================= */
+#telaImpostor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+}
+
+#telaImpostor .card-escolha {
+    padding: 30px 40px;
+    border-radius: 15px;
+    text-align: center;
+    width: 90%;
+    max-width: 450px;
+    color:#1E2240
+}
+
+#telaImpostor h2 {
+    color: #1E2240;
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+
+#telaImpostor #opcoesTema {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+#telaImpostor #opcoesTema button {
+    margin-top: 10px;
+    padding: 12px 28px;
+
+    background: #58C4B6;
+    color: #1E2240;
+
+    border: 4px solid #1E2240;
+    border-radius: 14px;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    width: 260px;
+
+    cursor: pointer;
+}
+
+#telaImpostor #opcoesTema button:hover {
+    background: #1E2240;
+    color: #58C4B6;
+    transform: scale(1.08);
+    transition: 0.2s;
+}
+
+
+/* =========================
+   TELA RESULTADO VOTOS
+   ========================= */
+#telaResultado{
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    gap:40px;
+}
+   
+.card-resultado{
+    background:#ffffff;
+    color:#1E2240;
+
+    width:420px;
+    min-height:320px;
+
+    border-radius:30px;
+
+    padding:35px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+}
+
+#resultadoTexto{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-top:10px;
+}
+
+.resultado-label{
+    font-size:20px;
+}
+
+.resultado-nome{
+    font-size:28px;
+    font-weight:700;
+}
+
+.resultado-final{
+    margin-top:10px;
+    font-size:22px;
+    font-weight:700;
+}
+
+.botoes-resultado{
+    margin-top:30px;
+
+    display:flex;
+    gap:15px;
+}
+
+.botoes-resultado button{
+
+    padding:12px 30px;
+
+    background:#58C4B6;
+    color:#1E2240;
+
+    border:4px solid #1E2240;
+    border-radius:18px;
+
+    font-size:18px;
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.botoes-resultado button:hover{
+    background: #1E2240;
+    color: #58C4B6;
+    transform: scale(1.08);
+    transition: 0.2s;
+}
+
+
+/* =========================
+   TELA RESULTADO TEMA
+   ========================= */
+
+#telaResultadoFinal{
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    gap:40px;
+}
+
+.card-resultado-final{
+    background:#ffffff;
+
+    width:420px;
+    min-height:320px;
+
+    border-radius:30px;
+
+    padding:35px;
+
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+
+    align-items:center;
+    text-align:center;
+    
+    color:#1E2240
+}
+
+.resultado-bloco{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.resultado-label{
+    font-size:18px;
+}
+
+.resultado-valor{
+    font-size:26px;
+    font-weight:700;
 }
