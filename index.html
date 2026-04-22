@@ -51,7 +51,7 @@
                     No final, o espião pode tentar adivinhar o tema para vencer.
                 </p>
             </div>
-            
+
             <button class="btn-iniciar" onclick="voltarInicio()">Voltar</button>
 
 
@@ -83,11 +83,27 @@
 
             <div class="area-adicionar">
 
-                <button class="btn-voltar" onclick="voltarParaInicio()">&lt</button>
+                <div class="botoes-esquerda">
+                    <button class="btn-voltar" onclick="voltarParaInicio()">&lt;</button>
+                    <button class="btn-adicionar">Adicionar</button>
+                </div>
 
-                <button class="btn-adicionar">Adicionar</button>
+                <div class="modo-pergunta">
+
+                    <label class="opcao-radio">
+                        <input type="radio" name="modoPergunta" value="especifico" checked>
+                        <span>Específico</span>
+                    </label>
+
+                    <label class="opcao-radio">
+                        <input type="radio" name="modoPergunta" value="geral">
+                        <span>Geral</span>
+                    </label>
+
+                </div>
 
             </div>
+
 
             <button class="btn-iniciar" onclick="iniciarJogo()">Iniciar</button>
             <p id="mensagemErro" class="mensagem-erro hidden"></p>
@@ -206,16 +222,33 @@
                     <span id="resultadoEspiao" class="resultado-valor"></span>
                 </div>
 
+                <div class="botaoContinuar">
+                    <button onclick="irParaExplicacao()">Continuar</button>
+                </div>
 
             </div>
-            <div class="botoes-resultado">
-                <button onclick="location.reload()">Jogar novamente</button>
-            </div>
+
         </div>
 
-    </div>
+        <div id="telaExplicacao" class="hidden">
 
-    <script src="script.js"></script>
+            <div class="card-explicacao">
+
+                <h2>Sobre a palavra</h2>
+
+                <h3 id="tituloPalavra"></h3>
+
+                <p id="textoExplicacao"></p>
+
+                <div class="botoes-resultado">
+                    <button onclick="location.reload()">Jogar novamente</button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <script src="script.js"></script>
 </body>
 
 </html>

@@ -9,141 +9,36 @@ let votos = [];
 let votanteAtual = 0;
 let jogadorAtualRevelar = 0;
 let palavraSecreta;
+let modoPergunta = "especifico";
 
 let temas = ["habitos", "corpo", "doencas", "remedios"];
 
 
 const dadosTemas = {
     habitos: {
-        palavras: [
-            "Dormir", "Acordar cedo", "Caminhar", "Ler", "Meditar",
-            "Escovar dentes", "Tomar banho", "Beber água", "Alongar", "Tomar sol",
-            "Comer frutas", "Exercitar", "Planejar", "Escrever", "Ouvir música",
-            "Sorrir", "Cozinhar", "Fazer lista", "Fazer hobby", "Tomar chá",
-            "Dormir tarde", "Ficar ansioso", "Procrastinar", "Reclamar", "Jogar",
-            "Assistir TV", "Comer doce", "Fumar", "Beber", "Morder unha",
-            "Ficar irritado", "Ignorar banho", "Ignorar dentes", "Ignorar exercícios", "Exagerar açúcar",
-            "Exagerar cafeína", "Ficar sentado", "Evitar responsabilidades", "Falar demais", "Ficar distraído",
-            "Comprar por impulso", "Ficar sozinho", "Desconectar do trabalho", "Ficar grudado no celular", "Evitar estudar",
-            "Praticar esporte", "Respirar fundo", "Organizar quarto", "Cantar", "Ajudar alguém"
-        ],
-        perguntas: [
-            "Você faria isso sem perceber?", "Alguém já te elogiou por isso?", "Isso já te deixou nervoso?",
-            "É algo que todos comentam?", "Já te ajudou sem você notar?", "Pode surpreender alguém?",
-            "Você acha divertido?", "Alguém já te avisou para não fazer?", "É rápido demais?",
-            "Pode dar preguiça?", "Já causou alguma confusão?", "É caro sem você perceber?",
-            "Alguém já riu disso?", "Você faria sozinho?", "Pode gerar fofoca?",
-            "Já te deixou mais cansado?", "Pode causar arrepios?", "Alguém já se enganou por isso?",
-            "É relaxante de um jeito estranho?", "Pode te desafiar?", "Você precisa planejar muito?",
-            "Pode dar vontade de desistir?", "Alguém já ajudou você nisso?", "É recomendado sem você saber?",
-            "Pode causar ansiedade sem motivo?", "Te dá energia?", "Alguém já criticou por fazer isso?",
-            "Já deu vontade de parar?", "Pode te fazer sentir culpado?", "Você já se sentiu criativo por causa disso?",
-            "Pode ser feito com outras pessoas?", "Alguém já percebeu que você faz isso?", "Isso melhora algo que você nem percebe?",
-            "Pode causar problemas sem você notar?", "É algo que faz você se sentir bem?", "Pode afetar autoestima?",
-            "Já causou briga com alguém?", "É difícil de largar?", "Pode melhorar seu humor inesperadamente?",
-            "Já ajudou alguém sem querer?", "Pode causar prejuízo sem perceber?", "Já te fez lembrar de algo importante?",
-            "É relaxante de forma estranha?", "Precisa de algum equipamento estranho?", "Pode ser feito muito rápido?",
-            "Pode mudar seu humor de repente?", "Já te prejudicou sem perceber?", "É recomendado por alguém curioso?",
-            "Pode virar hábito sem você notar?", "Alguém já disse que isso melhora saúde mental?", "Você já comentou sobre isso com alguém?"
-        ]
+        palavras: ["Beber muito café ou energético", "Fumar", "Beber", "Tomar sol", "Praticar exercícios", "Acordar cedo"],
+        perguntas: ["Você faz isso no seu dia a dia", "Que tipo de pessoa faz isso com mais frequência?", "Isso costuma acontecer mais em que momento do dia?",
+            "Isso costuma acontecer mais sozinho ou com outras pessoas?", "O que pode motivar alguém a parar com isso?", "Quem da roda você imagina fazendo isso com frequência?",
+            "Que tipo de hábito costuma vir junto com isso?"]
     },
     corpo: {
-        palavras: [
-            "Mão", "Pé", "Boca", "Coração", "Olho", "Braço", "Perna", "Nariz", "Orelha", "Cabeça",
-            "Cabelo", "Dedo", "Unha", "Língua", "Dente", "Bochecha", "Sobrancelha", "Pálpebra", "Pescoço", "Barriga",
-            "Peito", "Costas", "Ombro", "Joelho", "Cotovelo", "Calcanhar", "Panturrilha", "Coxa", "Quadril", "Glúteo",
-            "Palma", "Antebraço", "Face", "Barriga", "Braço", "Perna", "Nariz", "Orelha", "Olho", "Mão",
-            "Pé", "Boca", "Cabeça", "Cabelo", "Dedo", "Unha", "Língua", "Dente", "Bochecha", "Sobrancelha"
-        ],
-        perguntas: [
-            "É algo que você sente perto de você?", "Algo que muda ao longo da vida?", "Pode ser percebido sem tocar?",
-            "Costuma aparecer em fotos?", "Você consegue mexer isso?", "É algo que costuma se mover?",
-            "Pode ser visto em várias cores?", "Alguma vez já te chamou atenção?", "É algo que você protege?",
-            "Pode ser coberto por roupas?", "Costuma ser comparado com outras pessoas?", "É algo que se transforma com o tempo?",
-            "Pode indicar como você está?", "É algo que todos notam primeiro?", "Pode ser motivo de elogios?",
-            "Pode causar surpresa?", "Alguma vez já te machucou?", "É algo que você toca com frequência?",
-            "Pode ser objeto de cuidados especiais?", "Pode refletir seu estilo?", "É algo que pode crescer ou encurtar?",
-            "Algumas pessoas têm mais ou menos?", "Pode aparecer em selfies?", "Pode ser sentido pelo tato?",
-            "É algo que você não esquece de olhar?", "Costuma chamar atenção em movimento?", "É algo que pode ser simétrico?",
-            "Pode variar de pessoa para pessoa?", "É algo que pode ser pintado ou decorado?", "Pode ser comparado com animais?",
-            "É algo que você percebe com o espelho?", "Algumas vezes pode causar confusão?", "É algo que influencia expressões?",
-            "Pode ser coberto ou descoberto?", "Costuma aparecer em desenhos?", "Pode ser usado para se comunicar sem palavras?",
-            "É algo que você sente calor ou frio?", "Pode ser usado para gestos?", "Pode ser parte de brincadeiras?",
-            "É algo que te ajuda a reconhecer pessoas?", "Pode ser protegido com acessórios?", "É algo que acompanha você sempre?",
-            "Algumas vezes pode se mover sozinho?", "É algo que você percebe em fotos antigas?", "Pode ser objeto de curiosidade?",
-            "É algo que você observa sem pensar?", "Alguma vez já te surpreendeu?", "É algo que muda com humor?",
-            "Pode ser objeto de expressão artística?", "É algo que pode chamar atenção sem querer?"
-        ]
+        palavras: ["Tireoide", "Pulmões", "Fígado", "Coração", "Intestinos", "Rins", "Estômago", "Cérebro"],
+        perguntas: ["O que alguém perceberia no corpo quando isso não está funcionando bem?", "Se isso tivesse um papel em uma história, qual seria?",
+            "Que doença poderia afetar diretamente isso?", "Que tipo de exame poderia avaliar isso?", "Que hábito pode prejudicar isso ao longo do tempo? (No bom ou no mal sentido)",
+            "Se isso fosse um animal, qual você acha que seria?", "Se isso pudesse 'reclamar', do que você acha que reclamaria?",
+            "Que tipo de situação faria isso trabalhar mais do que o normal?"]
     },
     doencas: {
-        palavras: [
-            "Gripe", "Diabetes", "Asma", "Varicela", "Hipertensão", "Resfriado", "Bronquite", "Catapora", "Anemia", "Febre",
-            "Sinusite", "Otite", "Caxumba", "Hepatite", "Dengue", "Zika", "Covid", "Sarampo", "Tuberculose", "Malária",
-            "Tifo", "Varíola", "Raiva", "Meningite", "Câncer", "Alergia", "Obesidade", "Depressão", "Ansiedade", "Fibrose",
-            "Gastrite", "Colite", "Psoríase", "Artrite", "Lúpus", "Insônia", "Síndrome", "Infecção", "Herpes", "Vitiligo",
-            "Cistite", "Pneumonia", "Gastroenterite", "Hipotireoidismo", "Hipertireoidismo", "Esclerose", "Distúrbio", "Sífilis", "HIV", "Hepatite B"
-        ],
-        perguntas: [
-            "É algo que pode afetar muitas pessoas?", "Se essa palavra fosse um filme, qual seria o gênero?", "Costuma chamar atenção quando ocorre?",
-            "É algo que todos conhecem o nome?", "Essa palavra faz sentido depois de comer pizza às 3h da manhã?", "Pode aparecer em qualquer lugar do mundo?",
-            "Algumas pessoas têm predisposição?", "Você usaria isso numa conversa com um alienígena?", "Pode mudar de intensidade?",
-            "Algumas vezes se manifesta de forma inesperada?", "Essa palavra seria um bom nome de banda?", "Pode ser motivo de cuidado especial?",
-            "É algo que já ouviu falar em notícias?", "Se isso tivesse cheiro, seria doce ou azedo?", "Algumas pessoas tentam evitar?",
-            "Pode afetar jovens e idosos?", "Você usaria essa palavra num meme?", "Costuma ser lembrado por experiências pessoais?",
-            "Pode mudar com o tempo?", "Essa palavra combina mais com verão ou inverno?", "É algo que você percebe no dia a dia?",
-            "Pode ter diferentes nomes em diferentes lugares?", "Se isso fosse uma música, qual seria o ritmo?", "Algumas vezes pode ser silencioso?",
-            "É algo que gera curiosidade?", "Essa palavra poderia ser uma tendência do TikTok?", "Pode ser tema de conversa?",
-            "Algumas vezes aparece em séries ou filmes?", "Se isso fosse um superpoder, qual seria?", "Pode causar preocupação?",
-            "Algumas vezes é prevenível?", "Se isso fosse um animal, qual seria?", "Pode ser considerado sério por alguns?",
-            "É algo que as pessoas conhecem pelo menos de ouvir falar?", "Essa palavra combina com festa ou trabalho?", "Pode se manifestar de forma súbita?",
-            "Algumas vezes precisa de acompanhamento?", "Se isso tivesse sabor, seria doce ou salgado?", "Pode ser percebido de forma indireta?",
-            "É algo que inspira cuidados?", "Essa palavra poderia ser usada como senha?", "Algumas vezes pode ser confuso identificar?",
-            "Pode ser objeto de estudo?", "Se isso fosse um lugar, seria tranquilo ou caótico?", "Algumas vezes é citado em revistas ou jornais?",
-            "É algo que todos podem ter opinião?", "Essa palavra seria usada em redes sociais?", "Pode provocar mudanças na vida de alguém?",
-            "Pode se espalhar de forma lenta ou rápida?", "Você explicaria isso para uma criança?", "Algumas vezes provoca mudanças na rotina?",
-            "Pode ser lembrado por histórias de outros?", "Essa palavra poderia ser um tema viral na internet?", "É algo que gera atenção da família?",
-            "Algumas vezes pode ser temporário ou permanente?", "Se isso fosse um objeto, seria grande ou pequeno?", "Pode ser tema de discussão em escolas ou cursos?",
-            "Algumas vezes deixa marcas ou lembranças?", "Essa palavra combina com tecnologia ou natureza?", "É algo que faz parte da experiência humana?",
-            "Algumas vezes inspira pesquisas?", "Você faria um meme com isso?", "Pode ser lembrado em datas especiais?",
-            "Algumas vezes é mencionado em histórias familiares?", "Se isso fosse uma comida, qual seria?", "É algo que desperta atenção coletiva?",
-            "Algumas vezes precisa de prevenção contínua?", "Essa palavra combina com sol ou chuva?", "Se isso fosse uma estação do ano, qual seria?"
-        ]
+        palavras: ["Gripe", "Diabetes", "Asma", "Bronquite", "Peste Negra", "Covid", "Catapora", "Dengue", "Pneumonia", "Câncer"],
+        perguntas: ["Se alguém estivesse com isso agora, o que você perceberia no jeito da pessoa agir?", "Qual seria o maior incômodo no dia a dia de quem tem isso?",
+            "Que tipo de situação poderia piorar isso sem a pessoa perceber?", "Como alguém tentaria esconder que está com isso?", "Que tipo de pessoa sofreria mais com isso?",
+            "Qual seria a primeira coisa que alguém faria ao perceber isso?", "Você ja teve isso?"]
     },
     remedios: {
-        palavras: [
-            "Paracetamol", "Ibuprofeno", "Amoxicilina", "Dipirona", "Omeprazol",
-            "Aspirina", "Diclofenaco", "Loratadina", "Prednisona", "Claritromicina",
-            "Ranitidina", "Metformina", "Naproxeno", "Cefalexina", "Fluconazol",
-            "Prednisolona", "Simeticona", "Losartana", "Furosemida", "Amoxicilina + Clavulanato",
-            "Azitromicina", "Clindamicina", "Vitamina C", "Vitamina D", "Vitamina B12",
-            "Magnésio", "Potássio", "Captopril", "Enalapril", "Amlodipino",
-            "Omeprazol + Domperidona", "Metamizol", "Cetirizina", "Levotiroxina", "Sulfametoxazol + Trimetoprim",
-            "Doxiciclina", "Clorfeniramina", "Nistatina", "Loperamida", "Ginkgo Biloba",
-            "Propranolol", "Alprazolam", "Diazepam", "Buscopan", "Rivotril",
-            "Fluoxetina", "Sertralina", "Clonazepam", "Melatonina", "Hidroxicloroquina"
-        ],
-        perguntas: [
-            "É algo que se encontra em casa?", "Você usaria isso numa conversa com um alienígena?", "É usado para dor?",
-            "Precisa de receita?", "Se isso tivesse cheiro, seria doce ou azedo?", "É em comprimido ou líquido?",
-            "Alivia sintomas rápido?", "Essa palavra seria um bom nome de banda?", "Pode causar efeitos colaterais?",
-            "Algumas pessoas tentam evitar?", "Você usaria isso num meme?", "Pode ser tema de conversa?",
-            "Pode aparecer em qualquer lugar do mundo?", "Se isso fosse uma música, qual seria o ritmo?", "É algo que já ouviu falar em notícias?",
-            "Pode ter diferentes nomes em diferentes lugares?", "Essa palavra combina mais com verão ou inverno?", "Algumas vezes pode ser silencioso?",
-            "É algo que gera curiosidade?", "Essa palavra poderia ser uma tendência do TikTok?", "Algumas vezes aparece em séries ou filmes?",
-            "Se isso fosse um superpoder, qual seria?", "Pode causar preocupação?", "Algumas vezes é prevenível?",
-            "Pode ser considerado sério por alguns?", "Essa palavra combina com festa ou trabalho?", "Pode se manifestar de forma súbita?",
-            "Algumas vezes precisa de acompanhamento?", "Se isso tivesse sabor, seria doce ou salgado?", "Pode ser percebido de forma indireta?",
-            "É algo que inspira cuidados?", "Essa palavra poderia ser usada como senha?", "Algumas vezes pode ser confuso identificar?",
-            "Pode ser objeto de estudo?", "Se isso fosse um lugar, seria tranquilo ou caótico?", "Algumas vezes é citado em revistas ou jornais?",
-            "É algo que todos podem ter opinião?", "Essa palavra seria usada em redes sociais?", "Pode provocar mudanças na vida de alguém?",
-            "Pode se espalhar de forma lenta ou rápida?", "Você explicaria isso para uma criança?", "Algumas vezes provoca mudanças na rotina?",
-            "Pode ser lembrado por histórias de outros?", "Essa palavra poderia ser um tema viral na internet?", "É algo que gera atenção da família?",
-            "Algumas vezes pode ser temporário ou permanente?", "Se isso fosse um objeto, seria grande ou pequeno?", "Pode ser tema de discussão em escolas ou cursos?",
-            "Algumas vezes deixa marcas ou lembranças?", "Essa palavra combina com tecnologia ou natureza?", "É algo que faz parte da experiência humana?",
-            "Algumas vezes inspira pesquisas?", "Você faria um meme com isso?", "Pode ser lembrado em datas especiais?",
-            "Algumas vezes é mencionado em histórias familiares?", "Se isso fosse uma comida, qual seria?", "É algo que desperta atenção coletiva?",
-            "Algumas vezes precisa de prevenção contínua?", "Essa palavra combina com sol ou chuva?", "Se isso fosse uma estação do ano, qual seria?"
-        ]
+        palavras: ["Ozempic", "Ibuprofeno", "Losartana", "Dipirona", "Vitamina C", "Vitamina D", "Sertralina", "Zolpiden"],
+        perguntas: ["Você faz ou ja fez o uso desse medicamento?", "Que sinal indica que isso está fazendo efeito?", "Que tipo de pessoa costuma depender mais disso?",
+            "Ele deve ser tomado diariamente?", "Que gosto tem? (Caso nunca tenha tomado, que gosto voce imagina)", "Que tipo de problema pode aparecer com o uso prolongado sem acompanhamento?",
+            "Que efeito colateral ele pode ter?", "As pessoas costumam falar abertamente que usam isso ou preferem esconder?", "Que tipo de hábito poderia substituir esse medicamento?"]
     }
 };
 
@@ -244,6 +139,9 @@ function iniciarJogo() {
         return;
     }
 
+    let selecionado = document.querySelector('input[name="modoPergunta"]:checked');
+    modoPergunta = selecionado ? selecionado.value : "especifico";
+
     mensagem.classList.add("hidden");
 
     document.getElementById("telaJogadores").classList.add("hidden");
@@ -271,118 +169,32 @@ configurarEscolhaTema();
 function iniciarFaseRevelar() {
 
     const palavras = {
-        habitos: ["Dormir", "Acordar cedo", "Caminhar", "Ler", "Meditar",
-            "Escovar dentes", "Tomar banho", "Beber água", "Alongar", "Tomar sol",
-            "Comer frutas", "Exercitar", "Planejar", "Escrever", "Ouvir música",
-            "Sorrir", "Cozinhar", "Fazer lista", "Fazer hobby", "Tomar chá",
-            "Dormir tarde", "Ficar ansioso", "Procrastinar", "Reclamar", "Jogar",
-            "Assistir TV", "Comer doce", "Fumar", "Beber", "Morder unha",
-            "Ficar irritado", "Ignorar banho", "Ignorar dentes", "Ignorar exercícios", "Exagerar açúcar",
-            "Exagerar cafeína", "Ficar sentado", "Evitar responsabilidades", "Falar demais", "Ficar distraído",
-            "Comprar por impulso", "Ficar sozinho", "Desconectar do trabalho", "Ficar grudado no celular", "Evitar estudar",
-            "Praticar esporte", "Respirar fundo", "Organizar quarto", "Cantar", "Ajudar alguém"],
-        corpo: ["Mão", "Pé", "Boca", "Coração", "Olho", "Braço", "Perna", "Nariz", "Orelha", "Cabeça",
-            "Cabelo", "Dedo", "Unha", "Língua", "Dente", "Bochecha", "Sobrancelha", "Pálpebra", "Pescoço", "Barriga",
-            "Peito", "Costas", "Ombro", "Joelho", "Cotovelo", "Calcanhar", "Panturrilha", "Coxa", "Quadril", "Glúteo",
-            "Palma", "Antebraço", "Face", "Barriga", "Braço", "Perna", "Nariz", "Orelha", "Olho", "Mão",
-            "Pé", "Boca", "Cabeça", "Cabelo", "Dedo", "Unha", "Língua", "Dente", "Bochecha", "Sobrancelha"],
-        doencas: ["Gripe", "Diabetes", "Asma", "Varicela", "Hipertensão", "Resfriado", "Bronquite", "Catapora", "Anemia", "Febre",
-            "Sinusite", "Otite", "Caxumba", "Hepatite", "Dengue", "Zika", "Covid", "Sarampo", "Tuberculose", "Malária",
-            "Tifo", "Varíola", "Raiva", "Meningite", "Câncer", "Alergia", "Obesidade", "Depressão", "Ansiedade", "Fibrose",
-            "Gastrite", "Colite", "Psoríase", "Artrite", "Lúpus", "Insônia", "Síndrome", "Infecção", "Herpes", "Vitiligo",
-            "Cistite", "Pneumonia", "Gastroenterite", "Hipotireoidismo", "Hipertireoidismo", "Esclerose", "Distúrbio", "Sífilis", "HIV", "Hepatite B"],
-        remedios: ["Paracetamol", "Ibuprofeno", "Amoxicilina", "Dipirona", "Omeprazol",
-            "Aspirina", "Diclofenaco", "Loratadina", "Prednisona", "Claritromicina",
-            "Ranitidina", "Metformina", "Naproxeno", "Cefalexina", "Fluconazol",
-            "Prednisolona", "Simeticona", "Losartana", "Furosemida", "Amoxicilina + Clavulanato",
-            "Azitromicina", "Clindamicina", "Vitamina C", "Vitamina D", "Vitamina B12",
-            "Magnésio", "Potássio", "Captopril", "Enalapril", "Amlodipino",
-            "Omeprazol + Domperidona", "Metamizol", "Cetirizina", "Levotiroxina", "Sulfametoxazol + Trimetoprim",
-            "Doxiciclina", "Clorfeniramina", "Nistatina", "Loperamida", "Ginkgo Biloba",
-            "Propranolol", "Alprazolam", "Diazepam", "Buscopan", "Rivotril",
-            "Fluoxetina", "Sertralina", "Clonazepam", "Melatonina", "Hidroxicloroquina"]
+        habitos: ["Beber muito café ou energético", "Fumar", "Beber", "Tomar sol", "Praticar exercícios", "Acordar cedo"],
+
+        corpo: ["Tireoide", "Pulmões", "Fígado", "Coração", "Intestinos", "Rins", "Estômago", "Cérebro"],
+
+        doencas: ["Gripe", "Diabetes", "Asma", "Bronquite", "Peste Negra", "Covid", "Catapora", "Dengue", "Pneumonia", "Câncer"],
+
+        remedios: ["Ozempic", "Ibuprofeno", "Losartana", "Dipirona", "Vitamina C", "Vitamina D", "Sertralina", "Zolpiden"]
     };
 
     const perguntasPorTema = {
-        habitos: ["Você faria isso sem perceber?", "Alguém já te elogiou por isso?", "Isso já te deixou nervoso?",
-            "É algo que todos comentam?", "Já te ajudou sem você notar?", "Pode surpreender alguém?",
-            "Você acha divertido?", "Alguém já te avisou para não fazer?", "É rápido demais?",
-            "Pode dar preguiça?", "Já causou alguma confusão?", "É caro sem você perceber?",
-            "Alguém já riu disso?", "Você faria sozinho?", "Pode gerar fofoca?",
-            "Já te deixou mais cansado?", "Pode causar arrepios?", "Alguém já se enganou por isso?",
-            "É relaxante de um jeito estranho?", "Pode te desafiar?", "Você precisa planejar muito?",
-            "Pode dar vontade de desistir?", "Alguém já ajudou você nisso?", "É recomendado sem você saber?",
-            "Pode causar ansiedade sem motivo?", "Te dá energia?", "Alguém já criticou por fazer isso?",
-            "Já deu vontade de parar?", "Pode te fazer sentir culpado?", "Você já se sentiu criativo por causa disso?",
-            "Pode ser feito com outras pessoas?", "Alguém já percebeu que você faz isso?", "Isso melhora algo que você nem percebe?",
-            "Pode causar problemas sem você notar?", "É algo que faz você se sentir bem?", "Pode afetar autoestima?",
-            "Já causou briga com alguém?", "É difícil de largar?", "Pode melhorar seu humor inesperadamente?",
-            "Já ajudou alguém sem querer?", "Pode causar prejuízo sem perceber?", "Já te fez lembrar de algo importante?",
-            "É relaxante de forma estranha?", "Precisa de algum equipamento estranho?", "Pode ser feito muito rápido?",
-            "Pode mudar seu humor de repente?", "Já te prejudicou sem perceber?", "É recomendado por alguém curioso?",
-            "Pode virar hábito sem você notar?", "Alguém já disse que isso melhora saúde mental?", "Você já comentou sobre isso com alguém?"],
+        habitos: ["Você faz isso no seu dia a dia", "Que tipo de pessoa faz isso com mais frequência?", "Isso costuma acontecer mais em que momento do dia?",
+            "Isso costuma acontecer mais sozinho ou com outras pessoas?", "O que pode motivar alguém a parar com isso?", "Quem da roda você imagina fazendo isso com frequência?",
+            "Que tipo de hábito costuma vir junto com isso?"],
 
-        corpo: ["É algo que você sente perto de você?", "Algo que muda ao longo da vida?", "Pode ser percebido sem tocar?",
-            "Costuma aparecer em fotos?", "Você consegue mexer isso?", "É algo que costuma se mover?",
-            "Pode ser visto em várias cores?", "Alguma vez já te chamou atenção?", "É algo que você protege?",
-            "Pode ser coberto por roupas?", "Costuma ser comparado com outras pessoas?", "É algo que se transforma com o tempo?",
-            "Pode indicar como você está?", "É algo que todos notam primeiro?", "Pode ser motivo de elogios?",
-            "Pode causar surpresa?", "Alguma vez já te machucou?", "É algo que você toca com frequência?",
-            "Pode ser objeto de cuidados especiais?", "Pode refletir seu estilo?", "É algo que pode crescer ou encurtar?",
-            "Algumas pessoas têm mais ou menos?", "Pode aparecer em selfies?", "Pode ser sentido pelo tato?",
-            "É algo que você não esquece de olhar?", "Costuma chamar atenção em movimento?", "É algo que pode ser simétrico?",
-            "Pode variar de pessoa para pessoa?", "É algo que pode ser pintado ou decorado?", "Pode ser comparado com animais?",
-            "É algo que você percebe com o espelho?", "Algumas vezes pode causar confusão?", "É algo que influencia expressões?",
-            "Pode ser coberto ou descoberto?", "Costuma aparecer em desenhos?", "Pode ser usado para se comunicar sem palavras?",
-            "É algo que você sente calor ou frio?", "Pode ser usado para gestos?", "Pode ser parte de brincadeiras?",
-            "É algo que te ajuda a reconhecer pessoas?", "Pode ser protegido com acessórios?", "É algo que acompanha você sempre?",
-            "Algumas vezes pode se mover sozinho?", "É algo que você percebe em fotos antigas?", "Pode ser objeto de curiosidade?",
-            "É algo que você observa sem pensar?", "Alguma vez já te surpreendeu?", "É algo que muda com humor?",
-            "Pode ser objeto de expressão artística?", "É algo que pode chamar atenção sem querer?"],
+        corpo: ["O que alguém perceberia no corpo quando isso não está funcionando bem?", "Se isso tivesse um papel em uma história, qual seria?",
+            "Que doença poderia afetar diretamente isso?", "Que tipo de exame poderia avaliar isso?", "Que hábito pode prejudicar isso ao longo do tempo? (No bom ou no mal sentido)",
+            "Se isso fosse um animal, qual você acha que seria?", "Se isso pudesse 'reclamar', do que você acha que reclamaria?",
+            "Que tipo de situação faria isso trabalhar mais do que o normal?"],
 
-        doencas: ["É algo que pode afetar muitas pessoas?", "Se essa palavra fosse um filme, qual seria o gênero?", "Costuma chamar atenção quando ocorre?",
-            "É algo que todos conhecem o nome?", "Essa palavra faz sentido depois de comer pizza às 3h da manhã?", "Pode aparecer em qualquer lugar do mundo?",
-            "Algumas pessoas têm predisposição?", "Você usaria isso numa conversa com um alienígena?", "Pode mudar de intensidade?",
-            "Algumas vezes se manifesta de forma inesperada?", "Essa palavra seria um bom nome de banda?", "Pode ser motivo de cuidado especial?",
-            "É algo que já ouviu falar em notícias?", "Se isso tivesse cheiro, seria doce ou azedo?", "Algumas pessoas tentam evitar?",
-            "Pode afetar jovens e idosos?", "Você usaria essa palavra num meme?", "Costuma ser lembrado por experiências pessoais?",
-            "Pode mudar com o tempo?", "Essa palavra combina mais com verão ou inverno?", "É algo que você percebe no dia a dia?",
-            "Pode ter diferentes nomes em diferentes lugares?", "Se isso fosse uma música, qual seria o ritmo?", "Algumas vezes pode ser silencioso?",
-            "É algo que gera curiosidade?", "Essa palavra poderia ser uma tendência do TikTok?", "Pode ser tema de conversa?",
-            "Algumas vezes aparece em séries ou filmes?", "Se isso fosse um superpoder, qual seria?", "Pode causar preocupação?",
-            "Algumas vezes é prevenível?", "Se isso fosse um animal, qual seria?", "Pode ser considerado sério por alguns?",
-            "É algo que as pessoas conhecem pelo menos de ouvir falar?", "Essa palavra combina com festa ou trabalho?", "Pode se manifestar de forma súbita?",
-            "Algumas vezes precisa de acompanhamento?", "Se isso tivesse sabor, seria doce ou salgado?", "Pode ser percebido de forma indireta?",
-            "É algo que inspira cuidados?", "Essa palavra poderia ser usada como senha?", "Algumas vezes pode ser confuso identificar?",
-            "Pode ser objeto de estudo?", "Se isso fosse um lugar, seria tranquilo ou caótico?", "Algumas vezes é citado em revistas ou jornais?",
-            "É algo que todos podem ter opinião?", "Essa palavra seria usada em redes sociais?", "Pode provocar mudanças na vida de alguém?",
-            "Pode se espalhar de forma lenta ou rápida?", "Você explicaria isso para uma criança?", "Algumas vezes provoca mudanças na rotina?",
-            "Pode ser lembrado por histórias de outros?", "Essa palavra poderia ser um tema viral na internet?", "É algo que gera atenção da família?",
-            "Algumas vezes pode ser temporário ou permanente?", "Se isso fosse um objeto, seria grande ou pequeno?", "Pode ser tema de discussão em escolas ou cursos?",
-            "Algumas vezes deixa marcas ou lembranças?", "Essa palavra combina com tecnologia ou natureza?", "É algo que faz parte da experiência humana?",
-            "Algumas vezes inspira pesquisas?", "Você faria um meme com isso?", "Pode ser lembrado em datas especiais?",
-            "Algumas vezes é mencionado em histórias familiares?", "Se isso fosse uma comida, qual seria?", "É algo que desperta atenção coletiva?",
-            "Algumas vezes precisa de prevenção contínua?", "Essa palavra combina com sol ou chuva?", "Se isso fosse uma estação do ano, qual seria?"],
-        remedios: ["É algo que se encontra em casa?", "Você usaria isso numa conversa com um alienígena?", "É usado para dor?",
-            "Precisa de receita?", "Se isso tivesse cheiro, seria doce ou azedo?", "É em comprimido ou líquido?",
-            "Alivia sintomas rápido?", "Essa palavra seria um bom nome de banda?", "Pode causar efeitos colaterais?",
-            "Algumas pessoas tentam evitar?", "Você usaria isso num meme?", "Pode ser tema de conversa?",
-            "Pode aparecer em qualquer lugar do mundo?", "Se isso fosse uma música, qual seria o ritmo?", "É algo que já ouviu falar em notícias?",
-            "Pode ter diferentes nomes em diferentes lugares?", "Essa palavra combina mais com verão ou inverno?", "Algumas vezes pode ser silencioso?",
-            "É algo que gera curiosidade?", "Essa palavra poderia ser uma tendência do TikTok?", "Algumas vezes aparece em séries ou filmes?",
-            "Se isso fosse um superpoder, qual seria?", "Pode causar preocupação?", "Algumas vezes é prevenível?",
-            "Pode ser considerado sério por alguns?", "Essa palavra combina com festa ou trabalho?", "Pode se manifestar de forma súbita?",
-            "Algumas vezes precisa de acompanhamento?", "Se isso tivesse sabor, seria doce ou salgado?", "Pode ser percebido de forma indireta?",
-            "É algo que inspira cuidados?", "Essa palavra poderia ser usada como senha?", "Algumas vezes pode ser confuso identificar?",
-            "Pode ser objeto de estudo?", "Se isso fosse um lugar, seria tranquilo ou caótico?", "Algumas vezes é citado em revistas ou jornais?",
-            "É algo que todos podem ter opinião?", "Essa palavra seria usada em redes sociais?", "Pode provocar mudanças na vida de alguém?",
-            "Pode se espalhar de forma lenta ou rápida?", "Você explicaria isso para uma criança?", "Algumas vezes provoca mudanças na rotina?",
-            "Pode ser lembrado por histórias de outros?", "Essa palavra poderia ser um tema viral na internet?", "É algo que gera atenção da família?",
-            "Algumas vezes pode ser temporário ou permanente?", "Se isso fosse um objeto, seria grande ou pequeno?", "Pode ser tema de discussão em escolas ou cursos?",
-            "Algumas vezes deixa marcas ou lembranças?", "Essa palavra combina com tecnologia ou natureza?", "É algo que faz parte da experiência humana?",
-            "Algumas vezes inspira pesquisas?", "Você faria um meme com isso?", "Pode ser lembrado em datas especiais?",
-            "Algumas vezes é mencionado em histórias familiares?", "Se isso fosse uma comida, qual seria?", "É algo que desperta atenção coletiva?",
-            "Algumas vezes precisa de prevenção contínua?", "Essa palavra combina com sol ou chuva?", "Se isso fosse uma estação do ano, qual seria?"]
+        doencas: ["Se alguém estivesse com isso agora, o que você perceberia no jeito da pessoa agir?", "Qual seria o maior incômodo no dia a dia de quem tem isso?",
+            "Que tipo de situação poderia piorar isso sem a pessoa perceber?", "Como alguém tentaria esconder que está com isso?", "Que tipo de pessoa sofreria mais com isso?",
+            "Qual seria a primeira coisa que alguém faria ao perceber isso?", "Você ja teve isso?"],
+
+        remedios: ["Você faz ou ja fez o uso desse medicamento?", "Que sinal indica que isso está fazendo efeito?", "Que tipo de pessoa costuma depender mais disso?",
+            "Ele deve ser tomado diariamente?", "Que gosto tem? (Caso nunca tenha tomado, que gosto voce imagina)", "Que tipo de problema pode aparecer com o uso prolongado sem acompanhamento?",
+            "Que efeito colateral ele pode ter?", "As pessoas costumam falar abertamente que usam isso ou preferem esconder?", "Que tipo de hábito poderia substituir esse medicamento?"]
     };
 
     temaSelecionado = temaSelecionado;
@@ -450,21 +262,29 @@ function gerarInteracoes() {
     paresPergunta = [];
     indiceInteracao = 0;
 
-    let indices = jogadores.map((_, i) => i);
-    indices.sort(() => Math.random() - 0.5);
-
     let perguntasDisponiveis = [...dadosTemas[temaSelecionado].perguntas];
     perguntasDisponiveis.sort(() => Math.random() - 0.5);
 
-    for (let i = 0; i < indices.length; i++) {
-        let perguntaDe = indices[i];
-        let responde = indices[(i + 1) % indices.length];
+    if (modoPergunta === "geral") {
+        for (let i = 0; i < 3; i++) {
+            paresPergunta.push({
+                pergunta: perguntasDisponiveis[i]
+            });
+        }
+    } else {
+        let indices = jogadores.map((_, i) => i);
+        indices.sort(() => Math.random() - 0.5);
 
-        paresPergunta.push({
-            perguntaDe,
-            responde,
-            pergunta: perguntasDisponiveis[i % perguntasDisponiveis.length]
-        });
+        for (let i = 0; i < indices.length; i++) {
+            let perguntaDe = indices[i];
+            let responde = indices[(i + 1) % indices.length];
+
+            paresPergunta.push({
+                perguntaDe,
+                responde,
+                pergunta: perguntasDisponiveis[i % perguntasDisponiveis.length]
+            });
+        }
     }
 }
 
@@ -482,12 +302,18 @@ function mostrarInteracao() {
     }
 
     let par = paresPergunta[indiceInteracao];
-    document.getElementById("infoPergunta").innerHTML =
-        `<b>${jogadores[par.perguntaDe]}</b><br>
-     pergunta para:<br>
-     <b>${jogadores[par.responde]}</b>`;
-    document.getElementById("textoPergunta").innerText = par.pergunta;
 
+    if (modoPergunta === "geral") {
+        document.getElementById("infoPergunta").innerHTML =
+            `<b>Pergunta ${indiceInteracao + 1}</b>`;
+    } else {
+        document.getElementById("infoPergunta").innerHTML =
+            `<b>${jogadores[par.perguntaDe]}</b><br>
+         pergunta para:<br>
+         <b>${jogadores[par.responde]}</b>`;
+    }
+
+    document.getElementById("textoPergunta").innerText = par.pergunta;
     const btnVoltar = document.getElementById("btnVoltar");
 
     if (indiceInteracao === 0) {
@@ -631,4 +457,67 @@ function verificarResultado(escolhaImpostor) {
     } else {
         document.getElementById("resultadoEspiao").innerText = "O espião não acertou o tema";
     }
+
 }
+
+function irParaExplicacao() {
+    document.getElementById("telaResultadoFinal").classList.add("hidden");
+    document.getElementById("telaExplicacao").classList.remove("hidden");
+
+    let explicacao = gerarExplicacao(palavraSecreta, temaSelecionado);
+
+    document.getElementById("tituloPalavra").innerText = `"${palavraSecreta}"`; // AQUI
+    document.getElementById("textoExplicacao").innerText = explicacao;
+}
+
+function gerarExplicacao(palavra, tema) {
+
+    const explicacoes = {
+
+        habitos: {
+            "Beber muito café ou energético": "É o consumo frequente de bebidas com cafeína. O excesso pode causar ansiedade, insônia e aceleração do coração. Para evitar problemas, é importante controlar a quantidade e evitar à noite.",
+            "Fumar": "Fumar é o uso de cigarro ou nicotina. Pode causar doenças graves como câncer e problemas pulmonares. A melhor prevenção é não começar ou buscar parar com ajuda.",
+            "Beber": "É o consumo de bebidas alcoólicas. Em excesso, pode causar dependência e danos ao fígado. O ideal é consumir com moderação ou evitar.",
+            "Tomar sol": "É a exposição ao sol, importante para vitamina D. Em excesso, pode causar queimaduras e câncer de pele. Usar protetor e evitar horários fortes ajuda a prevenir.",
+            "Praticar exercícios": "É a realização de atividades físicas. Ajuda na saúde, mas em excesso pode causar lesões. O ideal é manter equilíbrio e orientação.",
+            "Acordar cedo": "É o hábito de levantar cedo. Pode ser positivo, mas sem sono suficiente causa cansaço. O ideal é manter uma rotina de sono adequada."
+        },
+
+        corpo: {
+            "Tireoide": "É uma glândula que regula o metabolismo. Problemas podem causar ganho ou perda de peso. A prevenção envolve acompanhamento médico e alimentação equilibrada.",
+            "Pulmões": "São responsáveis pela respiração. Fumo e poluição podem prejudicar seu funcionamento. Evitar cigarro ajuda a proteger.",
+            "Fígado": "Filtra toxinas do corpo. O álcool em excesso pode causar doenças. Uma alimentação saudável ajuda a prevenir problemas.",
+            "Coração": "Bombeia o sangue pelo corpo. Má alimentação e sedentarismo aumentam riscos. Exercícios e boa alimentação ajudam na prevenção.",
+            "Intestinos": "Ajudam na digestão e absorção de nutrientes. Má alimentação pode causar problemas. Consumir fibras e água ajuda a manter saudável.",
+            "Rins": "Filtram o sangue e produzem urina. Pouca água pode prejudicar. Beber água regularmente é essencial.",
+            "Estômago": "Inicia a digestão dos alimentos. Alimentação inadequada pode causar irritações. Evitar excessos ajuda na prevenção.",
+            "Cérebro": "Controla o corpo e as emoções. Estresse e falta de sono afetam seu funcionamento. Dormir bem e cuidar da saúde mental é importante."
+        },
+
+        doencas: {
+            "Gripe": "É uma infecção viral que causa febre e cansaço. Se espalha facilmente. Higiene e vacinação ajudam a prevenir.",
+            "Diabetes": "Afeta o controle do açúcar no sangue. Pode estar ligada à alimentação e genética. Dieta equilibrada e exercícios ajudam na prevenção.",
+            "Asma": "Doença que dificulta a respiração. Pode ser causada por alergias. Evitar gatilhos ajuda no controle.",
+            "Bronquite": "Inflamação dos brônquios que causa tosse. Pode ser causada por fumaça ou infecção. Evitar poluição ajuda a prevenir.",
+            "Peste Negra": "Doença infecciosa histórica causada por bactéria. Hoje é rara. Higiene e controle sanitário evitam sua propagação.",
+            "Covid": "Doença viral que afeta a respiração. É transmitida pelo contato. Vacinação e higiene ajudam a prevenir.",
+            "Catapora": "Doença viral com manchas na pele. É contagiosa. A vacina é a principal forma de prevenção.",
+            "Dengue": "Transmitida por mosquito. Causa febre e dores. Evitar água parada é essencial para prevenir.",
+            "Pneumonia": "Infecção nos pulmões. Pode ser grave. Vacinação e cuidados com a saúde ajudam a prevenir.",
+            "Câncer": "Crescimento descontrolado de células. Pode ter várias causas. Estilo de vida saudável e exames ajudam na prevenção."
+        },
+
+        remedios: {
+            "Ozempic": "É usado no controle do diabetes. Pode causar efeitos se usado sem orientação. Deve ser utilizado apenas com acompanhamento médico.",
+            "Ibuprofeno": "É um anti-inflamatório para dor e febre. Pode irritar o estômago em excesso. Usar com moderação evita problemas.",
+            "Losartana": "Usada para controlar a pressão alta. O uso incorreto pode afetar a pressão. Deve ser usada com orientação médica.",
+            "Dipirona": "Alivia dor e febre. Pode causar reações em algumas pessoas. O uso correto evita riscos.",
+            "Vitamina C": "Ajuda na imunidade. Em excesso pode causar desconforto. O ideal é manter doses equilibradas.",
+            "Vitamina D": "Importante para ossos e imunidade. A falta de sol pode causar deficiência. Exposição moderada ajuda a prevenir.",
+            "Sertralina": "É um antidepressivo. Pode afetar o humor se usado sem controle. Precisa de acompanhamento médico.",
+            "Zolpiden": "Usado para insônia. Pode causar dependência. Deve ser usado por curto período e com orientação."
+        }
+    };
+
+    return explicacoes[tema][palavra] || "Não há explicação cadastrada para essa palavra.";
+}   
